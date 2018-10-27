@@ -130,7 +130,7 @@
       </resource>
       <resource>
         <directory>src/main/xsd</directory>
-        <targetPath>com/topografix/gpx/xsd</targetPath>
+        <targetPath>META-INF/JAXB/xsd</targetPath>
         <filtering>false</filtering>
         <includes>
           <include>**</include>
@@ -138,7 +138,7 @@
       </resource>
       <resource>
         <directory>src/main/xjb</directory>
-        <targetPath>com/topografix/gpx/xjb</targetPath>
+        <targetPath>META-INF/JAXB/xjb</targetPath>
         <filtering>false</filtering>
         <includes>
           <include>**</include>

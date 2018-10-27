@@ -11,7 +11,7 @@
 
   <bindings schemaLocation="../xsd/gpx.xsd">
     <schemaBindings>
-      <package name="com.topografix.gpx"/>
+      <package name="org.bremersee.gpx.model"/>
     </schemaBindings>
   </bindings>
 
