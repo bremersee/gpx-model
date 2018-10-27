@@ -67,7 +67,6 @@
         <version>3.0.0</version>
         <configuration>
           <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
         </configuration>
       </plugin>
       <plugin>
@@ -162,6 +161,7 @@
           <xsdPathWithinArtifact>
             META-INF/JAXB/xsd
           </xsdPathWithinArtifact>
+          <locale>en_GB</locale>
         </configuration>
       </plugin>
       <plugin>
