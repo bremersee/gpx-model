@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<bindings version="2.1"
+    xmlns="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    extensionBindingPrefixes="xjc">
+
+  <globalBindings>
+    <xjc:simple/>
+    <serializable uid="1"/>
+  </globalBindings>
+
+  <bindings schemaLocation="../xsd/gpx.xsd">
+    <schemaBindings>
+      <package name="com.topografix.gpx"/>
+    </schemaBindings>
+  </bindings>
+
+</bindings>
