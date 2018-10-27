@@ -23,7 +23,7 @@ import org.bremersee.gpx.model.ObjectFactory;
  *
  * @author Christian Bremer
  */
-public abstract class JaxbContextHelper {
+public abstract class GpxJaxbContextHelper {
 
   @SuppressWarnings("WeakerAccess")
   public static final String[] CONTEXT_PATHS = {

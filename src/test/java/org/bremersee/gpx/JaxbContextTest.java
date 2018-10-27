@@ -33,7 +33,7 @@ public class JaxbContextTest {
 
   @Before
   public void createJAXBContext() throws JAXBException {
-    this.jaxbContext = JAXBContext.newInstance(JaxbContextHelper.contextPaths());
+    this.jaxbContext = JAXBContext.newInstance(GpxJaxbContextHelper.contextPaths());
   }
 
   @Test
