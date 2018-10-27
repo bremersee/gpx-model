@@ -128,22 +128,6 @@
           <include>**</include>
         </includes>
       </resource>
-      <resource>
-        <directory>src/main/xsd</directory>
-        <targetPath>META-INF/JAXB/xsd</targetPath>
-        <filtering>false</filtering>
-        <includes>
-          <include>**</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/xjb</directory>
-        <targetPath>META-INF/JAXB/xjb</targetPath>
-        <filtering>false</filtering>
-        <includes>
-          <include>**</include>
-        </includes>
-      </resource>
     </resources>
 
     <pluginManagement>
@@ -175,6 +159,9 @@
         </executions>
         <configuration>
           <target>2.1</target>
+          <xsdPathWithinArtifact>
+            META-INF/JAXB/xsd
+          </xsdPathWithinArtifact>
         </configuration>
       </plugin>
       <plugin>
