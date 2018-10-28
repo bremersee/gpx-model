@@ -40,6 +40,9 @@ public abstract class GpxJaxbContextHelper {
       ObjectFactory.class.getPackage().getName()
   };
 
+  private GpxJaxbContextHelper() {
+  }
+
   @SuppressWarnings("unused")
   public static String[] contextPathsBuilder(String[] otherContextPaths) {
     if (otherContextPaths == null || otherContextPaths.length == 0) {
