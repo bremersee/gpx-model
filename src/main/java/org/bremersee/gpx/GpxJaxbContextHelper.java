@@ -132,8 +132,17 @@ public abstract class GpxJaxbContextHelper {
     for (Map.Entry<Class<?>, List<Object>> entry : parsedExtensions.entrySet()) {
       final Class<?> c = entry.getKey();
       if (cls.equals(c) || (instancesOf && cls.isAssignableFrom(c))) {
-        //noinspection unchecked
-        list.addAll((List<T>) entry.getValue());
+        final List<Object> values = entry.getValue();
+        if (values != null) {
+          for (final Object value : values) {
+            if (value != null
+                && (cls.equals(value.getClass())
+                || (instancesOf && cls.isAssignableFrom(value.getClass())))) {
+              //noinspection unchecked
+              list.add((T) value);
+            }
+          }
+        }
       }
     }
     return Collections.unmodifiableList(list);
