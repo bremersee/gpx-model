@@ -17,9 +17,15 @@
 package org.bremersee.gpx;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ServiceLoader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import org.junit.Before;
+import org.bremersee.gpx.model.Gpx;
+import org.bremersee.gpx.model.WptType;
+import org.bremersee.xml.JaxbContextBuilder;
+import org.bremersee.xml.JaxbContextDataProvider;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -29,15 +35,18 @@ import org.junit.Test;
  */
 public class JaxbContextTest {
 
-  private JAXBContext jaxbContext;
+  private static JAXBContext jaxbContext;
 
-  @Before
-  public void createJAXBContext() throws JAXBException {
-    this.jaxbContext = JAXBContext.newInstance(GpxJaxbContextHelper.contextPaths());
+  @BeforeClass
+  public static void createJAXBContext() {
+    jaxbContext = JaxbContextBuilder
+        .builder()
+        .processAll(ServiceLoader.load(JaxbContextDataProvider.class))
+        .buildJaxbContext();
   }
 
   @Test
-  public void testXmlSchema() throws IOException {
+  public void testXmlSchema() throws IOException, JAXBException {
     System.out.println("Testing XML schema ...");
 
     final BufferSchemaOutputResolver res = new BufferSchemaOutputResolver();
@@ -45,5 +54,16 @@ public class JaxbContextTest {
     System.out.print(res);
 
     System.out.println("OK\n");
+
+    WptType wpt = new WptType();
+    wpt.setLat(new BigDecimal("52.4"));
+    wpt.setLon(new BigDecimal("10.8"));
+
+    Gpx gpx = new Gpx();
+    gpx.setCreator("org.bremersee");
+    gpx.setVersion("1.1");
+    gpx.getWpts().add(wpt);
+
+    jaxbContext.createMarshaller().marshal(gpx, System.out);
   }
 }
