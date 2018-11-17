@@ -103,6 +103,11 @@ public class JaxbContextTest {
     jaxbContext.createMarshaller().marshal(gpx, System.out);
   }
 
+  /**
+   * Test address.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testAddress() throws Exception {
     final Object obj = unmarshalClassPathResource(jaxbContextWithGarmin, "/Adresse.GPX");
@@ -110,6 +115,11 @@ public class JaxbContextTest {
     jaxbContextWithGarmin.createMarshaller().marshal(obj, System.out);
   }
 
+  /**
+   * Test address data.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testAddressData() throws Exception {
     final Object obj = unmarshalClassPathResource(jaxbContextWithGarmin, "/Adresse.GPX");
@@ -153,8 +163,13 @@ public class JaxbContextTest {
     Assert.assertEquals("Seerosenweg 1", wptExt.getAddress().getStreetAddresses().get(0));
   }
 
+  /**
+   * Test picture data.
+   *
+   * @throws Exception the exception
+   */
   @Test
-  public void testPicture() throws Exception {
+  public void testPictureData() throws Exception {
     final Object obj = unmarshalClassPathResource(jaxbContextWithGarmin, "/Bild.GPX");
     Assert.assertNotNull(obj);
     Assert.assertTrue(obj instanceof Gpx);
