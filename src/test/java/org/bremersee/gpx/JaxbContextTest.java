@@ -18,13 +18,20 @@ package org.bremersee.gpx;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 import java.util.ServiceLoader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.datatype.XMLGregorianCalendar;
+import org.bremersee.garmin.creationtime.v1.model.ext.CreationTimeExtension;
+import org.bremersee.garmin.gpx.v3.model.ext.WaypointExtension;
+import org.bremersee.gpx.model.ExtensionsType;
 import org.bremersee.gpx.model.Gpx;
 import org.bremersee.gpx.model.WptType;
 import org.bremersee.xml.JaxbContextBuilder;
 import org.bremersee.xml.JaxbContextDataProvider;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -37,25 +44,37 @@ public class JaxbContextTest {
 
   private static JAXBContext jaxbContext;
 
+  private static JAXBContext jaxbContextWithGarmin;
+
   /**
    * Create jaxb context.
    */
   @BeforeClass
   public static void createJAXBContext() {
-    jaxbContext = JaxbContextBuilder
+    final JaxbContextBuilder builder = JaxbContextBuilder
         .builder()
-        .processAll(ServiceLoader.load(JaxbContextDataProvider.class))
-        .buildJaxbContext();
+        .processAll(ServiceLoader.load(JaxbContextDataProvider.class));
+
+    jaxbContext = builder.buildJaxbContext(GpxJaxbContextDataProvider.NAMESPACE);
+    jaxbContextWithGarmin = builder.buildJaxbContext();
+  }
+
+  private static Object unmarshalClassPathResource(
+      final JAXBContext jaxbContext,
+      final String classPathResource) throws JAXBException {
+
+    return jaxbContext
+        .createUnmarshaller()
+        .unmarshal(JaxbContextTest.class.getResourceAsStream(classPathResource));
   }
 
   /**
    * Test xml schema.
    *
-   * @throws IOException   the io exception
-   * @throws JAXBException the jaxb exception
+   * @throws IOException the io exception
    */
   @Test
-  public void testXmlSchema() throws IOException, JAXBException {
+  public void testXmlSchema() throws IOException {
     System.out.println("Testing XML schema ...");
 
     final BufferSchemaOutputResolver res = new BufferSchemaOutputResolver();
@@ -63,7 +82,15 @@ public class JaxbContextTest {
     System.out.print(res);
 
     System.out.println("OK\n");
+  }
 
+  /**
+   * Test gpx with wpt.
+   *
+   * @throws JAXBException the jaxb exception
+   */
+  @Test
+  public void testGpxWithWpt() throws JAXBException {
     WptType wpt = new WptType();
     wpt.setLat(new BigDecimal("52.4"));
     wpt.setLon(new BigDecimal("10.8"));
@@ -75,4 +102,79 @@ public class JaxbContextTest {
 
     jaxbContext.createMarshaller().marshal(gpx, System.out);
   }
+
+  @Test
+  public void testAddress() throws Exception {
+    final Object obj = unmarshalClassPathResource(jaxbContextWithGarmin, "/Adresse.GPX");
+    Assert.assertNotNull(obj);
+    jaxbContextWithGarmin.createMarshaller().marshal(obj, System.out);
+  }
+
+  @Test
+  public void testAddressData() throws Exception {
+    final Object obj = unmarshalClassPathResource(jaxbContextWithGarmin, "/Adresse.GPX");
+    Assert.assertNotNull(obj);
+    Assert.assertTrue(obj instanceof Gpx);
+
+    final Gpx gpx = (Gpx) obj;
+    Assert.assertFalse(gpx.getWpts().isEmpty());
+
+    final WptType wpt = gpx.getWpts().get(0);
+    Assert.assertNotNull(wpt.getExtensions());
+
+    final ExtensionsType extensions = wpt.getExtensions();
+    Assert.assertNotNull(extensions.getAnies());
+    Assert.assertFalse(extensions.getAnies().isEmpty());
+
+    final List<WaypointExtension> waypointExtensions = GpxJaxbContextHelper.findExtensions(
+        WaypointExtension.class,
+        true,
+        GpxJaxbContextHelper.parseExtensions(extensions, jaxbContextWithGarmin));
+
+    Assert.assertFalse(waypointExtensions.isEmpty());
+    WaypointExtension wptExt = waypointExtensions.get(0);
+    Assert.assertNotNull(wptExt.getAddress());
+    Assert.assertNotNull(wptExt.getAddress().getStreetAddresses());
+    Assert.assertFalse(wptExt.getAddress().getStreetAddresses().isEmpty());
+    Assert.assertEquals("Seerosenweg 1", wptExt.getAddress().getStreetAddresses().get(0));
+
+    Optional<WaypointExtension> optionalWaypointExtension = GpxJaxbContextHelper
+        .findFirstExtension(
+            WaypointExtension.class,
+            true,
+            extensions,
+            jaxbContextWithGarmin.createUnmarshaller());
+
+    Assert.assertTrue(optionalWaypointExtension.isPresent());
+    wptExt = optionalWaypointExtension.get();
+    Assert.assertNotNull(wptExt.getAddress());
+    Assert.assertNotNull(wptExt.getAddress().getStreetAddresses());
+    Assert.assertFalse(wptExt.getAddress().getStreetAddresses().isEmpty());
+    Assert.assertEquals("Seerosenweg 1", wptExt.getAddress().getStreetAddresses().get(0));
+  }
+
+  @Test
+  public void testPicture() throws Exception {
+    final Object obj = unmarshalClassPathResource(jaxbContextWithGarmin, "/Bild.GPX");
+    Assert.assertNotNull(obj);
+    Assert.assertTrue(obj instanceof Gpx);
+
+    final Gpx gpx = (Gpx) obj;
+    Assert.assertFalse(gpx.getWpts().isEmpty());
+
+    final WptType wpt = gpx.getWpts().get(0);
+    Assert.assertNotNull(wpt.getExtensions());
+
+    final ExtensionsType extensions = wpt.getExtensions();
+    Assert.assertNotNull(extensions.getAnies());
+    Assert.assertFalse(extensions.getAnies().isEmpty());
+
+    Optional<CreationTimeExtension> cr = GpxJaxbContextHelper.findFirstExtension(
+        CreationTimeExtension.class, true, extensions, jaxbContextWithGarmin);
+    Assert.assertTrue(cr.isPresent());
+    final XMLGregorianCalendar cal = cr.get().getCreationTime();
+    Assert.assertNotNull(cal);
+    Assert.assertEquals(2012, cal.getYear());
+  }
+
 }
