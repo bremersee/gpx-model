@@ -39,7 +39,7 @@ public class GpxJaxbContextDataProvider implements JaxbContextDataProvider {
   public Collection<JaxbContextData> getJaxbContextData() {
     return Collections.singletonList(new JaxbContextData(
         NAMESPACE,
-        "http://bremersee.github.io/xmlschemas/gpx/gpx_v1_1.xsd",
+        "http://www.topografix.com/GPX/1/1/gpx.xsd",
         ObjectFactory.class.getPackage().getName()));
   }
 
