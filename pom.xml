@@ -78,7 +78,7 @@
     <site>
       <id>bremersee-sites</id>
       <url>
-        dav:https://nexus.bremersee.org/repository/maven-sites/garmin-model
+        dav:https://nexus.bremersee.org/repository/maven-sites/gpx-model
       </url>
     </site>
   </distributionManagement>
