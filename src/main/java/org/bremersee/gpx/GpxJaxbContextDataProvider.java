@@ -38,9 +38,8 @@ public class GpxJaxbContextDataProvider implements JaxbContextDataProvider {
   @Override
   public Collection<JaxbContextData> getJaxbContextData() {
     return Collections.singletonList(new JaxbContextData(
-        NAMESPACE,
-        "http://www.topografix.com/GPX/1/1/gpx.xsd",
-        ObjectFactory.class.getPackage().getName()));
+        ObjectFactory.class.getPackage(),
+        "http://www.topografix.com/GPX/1/1/gpx.xsd"));
   }
 
 }
