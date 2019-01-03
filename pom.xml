@@ -12,6 +12,7 @@
     <github.global.server>github</github.global.server>
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <product.vendor>bremersee.org</product.vendor>
     <inceptionYear>2019</inceptionYear>
 
@@ -78,7 +79,7 @@
     <site>
       <id>bremersee-sites</id>
       <url>
-        dav:https://nexus.bremersee.org/repository/maven-sites/gpx-model
+        dav:https://nexus.bremersee.org/repository/maven-sites/gpx-model/${project.version}
       </url>
     </site>
   </distributionManagement>

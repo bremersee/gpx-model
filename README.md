@@ -2,7 +2,7 @@
 
 A Java model of [GPX 1.1 schema](http://www.topografix.com/GPX/1/1)
 
-- [Documentation](https://nexus.bremersee.org/repository/maven-sites/gpx-model/index.html)
+- [Documentation](https://nexus.bremersee.org/repository/maven-sites/gpx-model/1.1-SNAPSHOT/index.html)
 
 ### Maven
 
