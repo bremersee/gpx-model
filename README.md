@@ -10,7 +10,7 @@ A Java model of [GPX 1.1 schema](http://www.topografix.com/GPX/1/1)
 <dependency>
   <groupId>org.bremersee</groupId>
   <artifactId>gpx-model</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.1-SNAPSHOT</version>
 </dependency>
 ```
 
