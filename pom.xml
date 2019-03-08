@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.bremersee</groupId>
@@ -143,6 +143,14 @@
           <include>**</include>
         </includes>
       </resource>
+      <resource>
+        <directory>src/main/xsd</directory>
+        <targetPath>META-INF/JAXB/xsd</targetPath>
+        <filtering>false</filtering>
+        <includes>
+          <include>*.xsd</include>
+        </includes>
+      </resource>
     </resources>
 
     <pluginManagement>
@@ -173,26 +181,33 @@
 
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jaxb2-maven-plugin</artifactId>
-        <version>2.4</version>
+        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <artifactId>maven-jaxb2-plugin</artifactId>
+        <version>0.14.0</version>
         <executions>
           <execution>
-            <id>xjc</id>
             <goals>
-              <goal>xjc</goal>
+              <goal>generate</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
-          <target>2.1</target>
-          <xsdPathWithinArtifact>
-            META-INF/JAXB/xsd
-          </xsdPathWithinArtifact>
-          <locale>en_GB</locale>
+          <extension>true</extension>
+          <args>
+            <arg>-Xinheritance</arg>
+          </args>
+          <schemaDirectory>src/main/xsd</schemaDirectory>
+          <bindingDirectory>src/main/xjb</bindingDirectory>
+          <generateDirectory>${project.build.directory}/generated-sources/jaxb</generateDirectory>
+          <plugins>
+            <plugin>
+              <groupId>org.jvnet.jaxb2_commons</groupId>
+              <artifactId>jaxb2-basics</artifactId>
+              <version>0.11.1</version>
+            </plugin>
+          </plugins>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>

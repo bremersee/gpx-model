@@ -16,6 +16,8 @@
 
 package org.bremersee.gpx;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,6 +30,7 @@ import org.bremersee.garmin.creationtime.v1.model.ext.CreationTimeExtension;
 import org.bremersee.garmin.gpx.v3.model.ext.WaypointExtension;
 import org.bremersee.gpx.model.ExtensionsType;
 import org.bremersee.gpx.model.Gpx;
+import org.bremersee.gpx.model.LinkType;
 import org.bremersee.gpx.model.WptType;
 import org.bremersee.xml.JaxbContextBuilder;
 import org.bremersee.xml.JaxbContextDataProvider;
@@ -91,16 +94,32 @@ public class JaxbContextTest {
    */
   @Test
   public void testGpxWithWpt() throws JAXBException {
+    LinkType link = new LinkType();
+    link.setHref("http://localhost");
+
     WptType wpt = new WptType();
     wpt.setLat(new BigDecimal("52.4"));
     wpt.setLon(new BigDecimal("10.8"));
+    wpt.setSrc("test");
+    wpt.getLinks().add(link);
 
     Gpx gpx = new Gpx();
     gpx.setCreator("org.bremersee");
     gpx.setVersion("1.1");
     gpx.getWpts().add(wpt);
 
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
     jaxbContext.createMarshaller().marshal(gpx, System.out);
+    jaxbContext.createMarshaller().marshal(gpx, out);
+
+    Gpx readGpx = (Gpx) jaxbContext.createUnmarshaller()
+        .unmarshal(new ByteArrayInputStream(out.toByteArray()));
+    Assert.assertNotNull(readGpx);
+    Assert.assertFalse(readGpx.getWpts().isEmpty());
+    WptType readWpt = readGpx.getWpts().get(0);
+    Assert.assertEquals(wpt.getLat(), readWpt.getLat());
+    Assert.assertEquals(wpt.getLon(), readWpt.getLon());
+    Assert.assertEquals(wpt.getSrc(), readWpt.getSrc());
   }
 
   /**
