@@ -159,12 +159,18 @@ public interface ExtensionsTypeBuilder {
 
     @Override
     public ExtensionsTypeBuilder addElement(Object extensionElement, JAXBContext jaxbContext) {
+      if (extensionElement == null) {
+        return this;
+      }
       return addElement(
           documentBuilder.buildDocument(extensionElement, jaxbContext).getDocumentElement());
     }
 
     @Override
     public ExtensionsTypeBuilder addElement(Object extensionElement, Marshaller marshaller) {
+      if (extensionElement == null) {
+        return this;
+      }
       return addElement(
           documentBuilder.buildDocument(extensionElement, marshaller).getDocumentElement());
     }
