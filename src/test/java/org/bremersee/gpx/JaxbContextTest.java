@@ -53,7 +53,7 @@ public class JaxbContextTest {
    * Create jaxb context.
    */
   @BeforeClass
-  public static void createJAXBContext() {
+  public static void createJaxbContext() {
     final JaxbContextBuilder builder = JaxbContextBuilder
         .builder()
         .processAll(ServiceLoader.load(JaxbContextDataProvider.class));

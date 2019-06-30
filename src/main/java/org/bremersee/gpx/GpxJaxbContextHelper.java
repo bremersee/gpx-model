@@ -53,7 +53,7 @@ public abstract class GpxJaxbContextHelper {
    * @param extensions  the GPX extension
    * @param jaxbContext the {@link JAXBContext} to parse the elements
    * @return an unmodifiable map with the unmarshalled objects (key is the class of the objects,
-   *     value is a list with all unmarshalled objects of this class)
+   * value is a list with all unmarshalled objects of this class)
    */
   public static Map<Class<?>, List<Object>> parseExtensions(
       final ExtensionsType extensions,
@@ -81,7 +81,7 @@ public abstract class GpxJaxbContextHelper {
    * @param extensions   the GPX extension
    * @param unmarshaller the {@link Unmarshaller} to parse the elements
    * @return an unmodifiable map with the unmarshalled objects (key is the class of the objects,
-   *     value is a list with all unmarshalled objects of this class)
+   * value is a list with all unmarshalled objects of this class)
    */
   public static Map<Class<?>, List<Object>> parseExtensions(
       final ExtensionsType extensions,
@@ -117,7 +117,8 @@ public abstract class GpxJaxbContextHelper {
    * @param cls              the type
    * @param instancesOf      if {@code true} instanceof will be used, otherwise {@link
    *                         Class#equals(Object)} will be used
-   * @param parsedExtensions the parsed extensions (see {@link GpxJaxbContextHelper#parseExtensions(ExtensionsType,
+   * @param parsedExtensions the parsed extensions
+   *                         (see {@link GpxJaxbContextHelper#parseExtensions(ExtensionsType,
    *                         JAXBContext)})
    * @param <T>              the type
    * @return an unmodifiable list of all extensions of the given type
@@ -196,11 +197,12 @@ public abstract class GpxJaxbContextHelper {
    * @param cls              the type
    * @param instancesOf      if {@code true} instanceof will be used, otherwise {@link
    *                         Class#equals(Object)} will be used
-   * @param parsedExtensions the parsed extensions (see {@link GpxJaxbContextHelper#parseExtensions(ExtensionsType,
+   * @param parsedExtensions the parsed extensions
+   *                         (see {@link GpxJaxbContextHelper#parseExtensions(ExtensionsType,
    *                         JAXBContext)})
    * @param <T>              the type
    * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the
-   *     parsed element
+   * parsed element
    */
   public static <T> Optional<T> findFirstExtension(
       final Class<T> cls,
@@ -221,7 +223,7 @@ public abstract class GpxJaxbContextHelper {
    * @param jaxbContext the {@link JAXBContext} to parse the elements
    * @param <T>         the type
    * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the
-   *     parsed element
+   * parsed element
    */
   public static <T> Optional<T> findFirstExtension(
       final Class<T> cls,
@@ -243,7 +245,7 @@ public abstract class GpxJaxbContextHelper {
    * @param unmarshaller the {@link Unmarshaller} to parse the elements
    * @param <T>          the type
    * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the
-   *     parsed element
+   * parsed element
    */
   public static <T> Optional<T> findFirstExtension(
       final Class<T> cls,
