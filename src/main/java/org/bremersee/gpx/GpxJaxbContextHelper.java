@@ -47,7 +47,7 @@ public abstract class GpxJaxbContextHelper {
    * objects as value.
    *
    * <p>If the {@link JAXBContext} cannot unmarshall the {@link Element} to a concrete object, a
-   * map entry will be created with {@link Element#getClass()} as key and a list with all elements
+   * map entry will be created with the class of the element as key and a list with all elements
    * as value.
    *
    * @param extensions  the GPX extension
@@ -75,7 +75,7 @@ public abstract class GpxJaxbContextHelper {
    * objects as value.
    *
    * <p>If the {@link Unmarshaller} cannot unmarshall the {@link Element} to a concrete object, a
-   * map entry will be created with {@link Element#getClass()} as key and a list with all elements
+   * map entry will be created with the class of the element as key and a list with all elements
    * as value.
    *
    * @param extensions   the GPX extension
