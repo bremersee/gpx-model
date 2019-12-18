@@ -7,14 +7,21 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.11</version>
     <relativePath/>
   </parent>
 
   <artifactId>gpx-model</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
   <name>GPX Model</name>
   <url>https://github.com/bremersee/gpx-model</url>
+
+  <properties>
+    <github.repo>gpx-model</github.repo>
+    <gh-pages-staging-dir>${project.build.directory}/staging</gh-pages-staging-dir>
+    <common-model.version>1.1.7</common-model.version>
+    <garmin-model.version>1.0.1</garmin-model.version>
+  </properties>
 
   <scm>
     <url>https://github.com/bremersee/gpx-model</url>
@@ -44,12 +51,12 @@
     <dependency>
       <groupId>org.bremersee</groupId>
       <artifactId>common-model</artifactId>
-      <version>1.1.0</version>
+      <version>${common-model.version}</version>
     </dependency>
     <dependency>
       <groupId>org.bremersee</groupId>
       <artifactId>garmin-model</artifactId>
-      <version>1.0.0</version>
+      <version>${garmin-model.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
