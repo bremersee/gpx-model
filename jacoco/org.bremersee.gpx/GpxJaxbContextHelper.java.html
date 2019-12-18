@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GpxJaxbContextHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GPX Model</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.gpx</a> &gt; <span class="el_source">GpxJaxbContextHelper.java</span></div><h1>GpxJaxbContextHelper.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2018 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.bremersee.gpx;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import org.bremersee.gpx.model.ExtensionsType;
+import org.w3c.dom.Element;
+
+/**
+ * GPX XML context helper.
+ *
+ * @author Christian Bremer
+ */
+@SuppressWarnings({&quot;unused&quot;, &quot;WeakerAccess&quot;})
+public abstract class GpxJaxbContextHelper {
+
+  private GpxJaxbContextHelper() {
+  }
+
+  /**
+   * Parses the elemants of the given GPX extensions ({@link ExtensionsType#getAnies()}) with the
+   * given {@link JAXBContext}:
+   *
+   * &lt;p&gt;If the {@link JAXBContext} can unmarshall the {@link Element} to a concrete object, a map
+   * entry will be created with the class of the object as key and a list with all unmarshalled
+   * objects as value.
+   *
+   * &lt;p&gt;If the {@link JAXBContext} cannot unmarshall the {@link Element} to a concrete object, a
+   * map entry will be created with the class of the element as key and a list with all elements
+   * as value.
+   *
+   * @param extensions  the GPX extension
+   * @param jaxbContext the {@link JAXBContext} to parse the elements
+   * @return an unmodifiable map with the unmarshalled objects (key is the class of the objects,
+   * value is a list with all unmarshalled objects of this class)
+   */
+  public static Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; parseExtensions(
+      final ExtensionsType extensions,
+      final JAXBContext jaxbContext) {
+
+    try {
+<span class="fc" id="L63">      return parseExtensions(extensions, jaxbContext.createUnmarshaller());</span>
+<span class="nc" id="L64">    } catch (final Exception ignored) {</span>
+<span class="nc" id="L65">      return parseExtensions(extensions, (Unmarshaller) null);</span>
+    }
+  }
+
+  /**
+   * Parses the elemants of the given GPX extensions ({@link ExtensionsType#getAnies()}) with the
+   * given {@link Unmarshaller}:
+   *
+   * &lt;p&gt;If the {@link Unmarshaller} can unmarshall the {@link Element} to a concrete object, a map
+   * entry will be created with the class of the object as key and a list with all unmarshalled
+   * objects as value.
+   *
+   * &lt;p&gt;If the {@link Unmarshaller} cannot unmarshall the {@link Element} to a concrete object, a
+   * map entry will be created with the class of the element as key and a list with all elements
+   * as value.
+   *
+   * @param extensions   the GPX extension
+   * @param unmarshaller the {@link Unmarshaller} to parse the elements
+   * @return an unmodifiable map with the unmarshalled objects (key is the class of the objects,
+   * value is a list with all unmarshalled objects of this class)
+   */
+  public static Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; parseExtensions(
+      final ExtensionsType extensions,
+      final Unmarshaller unmarshaller) {
+
+<span class="fc" id="L90">    final Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; map = new HashMap&lt;&gt;();</span>
+<span class="pc bpc" id="L91" title="2 of 4 branches missed.">    if (extensions == null || extensions.getAnies() == null) {</span>
+<span class="nc" id="L92">      return map;</span>
+    }
+<span class="fc bfc" id="L94" title="All 2 branches covered.">    for (final Element element : extensions.getAnies()) {</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">      if (element != null) {</span>
+<span class="fc" id="L96">        final Object strictElement = parseElement(element, unmarshaller);</span>
+<span class="fc" id="L97">        final List&lt;Object&gt; values = map.computeIfAbsent(</span>
+<span class="fc" id="L98">            strictElement.getClass(), k -&gt; new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L99">        values.add(strictElement);</span>
+      }
+<span class="fc" id="L101">    }</span>
+<span class="fc" id="L102">    return Collections.unmodifiableMap(map);</span>
+  }
+
+  private static Object parseElement(final Element element, final Unmarshaller unmarshaller) {
+    try {
+<span class="fc" id="L107">      return unmarshaller.unmarshal(element);</span>
+
+<span class="nc" id="L109">    } catch (final Exception ignored) {</span>
+<span class="nc" id="L110">      return element;</span>
+    }
+  }
+
+  /**
+   * Find all extensions of the given type.
+   *
+   * @param cls              the type
+   * @param instancesOf      if {@code true} instanceof will be used, otherwise {@link
+   *                         Class#equals(Object)} will be used
+   * @param parsedExtensions the parsed extensions
+   *                         (see {@link GpxJaxbContextHelper#parseExtensions(ExtensionsType,
+   *                         JAXBContext)})
+   * @param &lt;T&gt;              the type
+   * @return an unmodifiable list of all extensions of the given type
+   */
+  public static &lt;T&gt; List&lt;T&gt; findExtensions(
+      final Class&lt;T&gt; cls,
+      final boolean instancesOf,
+      final Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; parsedExtensions) {
+
+<span class="pc bpc" id="L131" title="3 of 6 branches missed.">    if (cls == null || parsedExtensions == null || parsedExtensions.isEmpty()) {</span>
+<span class="nc" id="L132">      return Collections.emptyList();</span>
+    }
+<span class="fc" id="L134">    final List&lt;T&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">    for (Map.Entry&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; entry : parsedExtensions.entrySet()) {</span>
+<span class="fc" id="L136">      final Class&lt;?&gt; c = entry.getKey();</span>
+<span class="pc bpc" id="L137" title="2 of 6 branches missed.">      if (cls.equals(c) || (instancesOf &amp;&amp; cls.isAssignableFrom(c))) {</span>
+<span class="fc" id="L138">        final List&lt;Object&gt; values = entry.getValue();</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (values != null) {</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">          for (final Object value : values) {</span>
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">            if (value != null</span>
+<span class="pc bpc" id="L142" title="3 of 4 branches missed.">                &amp;&amp; (cls.equals(value.getClass())</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">                || (instancesOf &amp;&amp; cls.isAssignableFrom(value.getClass())))) {</span>
+              //noinspection unchecked
+<span class="fc" id="L145">              list.add((T) value);</span>
+            }
+<span class="fc" id="L147">          }</span>
+        }
+      }
+<span class="fc" id="L150">    }</span>
+<span class="fc" id="L151">    return Collections.unmodifiableList(list);</span>
+  }
+
+  /**
+   * Find all extensions of the given type.
+   *
+   * @param cls         the type
+   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link
+   *                    Class#equals(Object)} will be used
+   * @param extensions  the GPX extensions
+   * @param jaxbContext the {@link JAXBContext} to parse the elements
+   * @param &lt;T&gt;         the type
+   * @return an unmodifiable list of all extensions of the given type
+   */
+  public static &lt;T&gt; List&lt;T&gt; findExtensions(
+      final Class&lt;T&gt; cls,
+      final boolean instancesOf,
+      final ExtensionsType extensions,
+      final JAXBContext jaxbContext) {
+
+<span class="fc" id="L171">    return findExtensions(cls, instancesOf, parseExtensions(extensions, jaxbContext));</span>
+  }
+
+  /**
+   * Find all extensions of the given type.
+   *
+   * @param cls          the type
+   * @param instancesOf  if {@code true} instanceof will be used, otherwise {@link
+   *                     Class#equals(Object)} will be used
+   * @param extensions   the GPX extensions
+   * @param unmarshaller the {@link Unmarshaller} to parse the elements
+   * @param &lt;T&gt;          the type
+   * @return an unmodifiable list of all extensions of the given type
+   */
+  public static &lt;T&gt; List&lt;T&gt; findExtensions(
+      final Class&lt;T&gt; cls,
+      final boolean instancesOf,
+      final ExtensionsType extensions,
+      final Unmarshaller unmarshaller) {
+
+<span class="fc" id="L191">    return findExtensions(cls, instancesOf, parseExtensions(extensions, unmarshaller));</span>
+  }
+
+  /**
+   * Find the first extension of the given type.
+   *
+   * @param cls              the type
+   * @param instancesOf      if {@code true} instanceof will be used, otherwise {@link
+   *                         Class#equals(Object)} will be used
+   * @param parsedExtensions the parsed extensions
+   *                         (see {@link GpxJaxbContextHelper#parseExtensions(ExtensionsType,
+   *                         JAXBContext)})
+   * @param &lt;T&gt;              the type
+   * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the
+   * parsed element
+   */
+  public static &lt;T&gt; Optional&lt;T&gt; findFirstExtension(
+      final Class&lt;T&gt; cls,
+      final boolean instancesOf,
+      final Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; parsedExtensions) {
+
+<span class="nc" id="L212">    final List&lt;T&gt; list = findExtensions(cls, instancesOf, parsedExtensions);</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">    return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));</span>
+  }
+
+  /**
+   * Find the first extension of the given type.
+   *
+   * @param cls         the type
+   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link
+   *                    Class#equals(Object)} will be used
+   * @param extensions  the GPX extensions
+   * @param jaxbContext the {@link JAXBContext} to parse the elements
+   * @param &lt;T&gt;         the type
+   * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the
+   * parsed element
+   */
+  public static &lt;T&gt; Optional&lt;T&gt; findFirstExtension(
+      final Class&lt;T&gt; cls,
+      final boolean instancesOf,
+      final ExtensionsType extensions,
+      final JAXBContext jaxbContext) {
+
+<span class="fc" id="L234">    final List&lt;T&gt; list = findExtensions(cls, instancesOf, extensions, jaxbContext);</span>
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">    return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));</span>
+  }
+
+  /**
+   * Find the first extension of the given type.
+   *
+   * @param cls          the type
+   * @param instancesOf  if {@code true} instanceof will be used, otherwise {@link
+   *                     Class#equals(Object)} will be used
+   * @param extensions   the GPX extensions
+   * @param unmarshaller the {@link Unmarshaller} to parse the elements
+   * @param &lt;T&gt;          the type
+   * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the
+   * parsed element
+   */
+  public static &lt;T&gt; Optional&lt;T&gt; findFirstExtension(
+      final Class&lt;T&gt; cls,
+      final boolean instancesOf,
+      final ExtensionsType extensions,
+      final Unmarshaller unmarshaller) {
+
+<span class="fc" id="L256">    final List&lt;T&gt; list = findExtensions(cls, instancesOf, extensions, unmarshaller);</span>
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">    return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

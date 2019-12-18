@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExtensionsTypeBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GPX Model</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.gpx</a> &gt; <span class="el_source">ExtensionsTypeBuilder.java</span></div><h1>ExtensionsTypeBuilder.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2019 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.bremersee.gpx;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import org.bremersee.gpx.model.ExtensionsType;
+import org.bremersee.xml.XmlDocumentBuilder;
+import org.w3c.dom.Element;
+
+/**
+ * The extensions builder interface.
+ *
+ * @author Christian Bremer
+ */
+@SuppressWarnings(&quot;unused&quot;)
+public interface ExtensionsTypeBuilder {
+
+  /**
+   * Use document builder.
+   *
+   * @param documentBuilder the document builder
+   * @return the extensions builder
+   */
+  ExtensionsTypeBuilder use(XmlDocumentBuilder documentBuilder);
+
+  /**
+   * Add element to the extensions.
+   *
+   * @param extensionElement the extension element
+   * @return the extensions type builder
+   */
+  ExtensionsTypeBuilder addElement(Element extensionElement);
+
+  /**
+   * Add element to the extensions.
+   *
+   * @param extensionElement the extension element
+   * @param jaxbContext      the jaxb context
+   * @return the extensions type builder
+   */
+  ExtensionsTypeBuilder addElement(Object extensionElement, JAXBContext jaxbContext);
+
+  /**
+   * Add element to the extensions.
+   *
+   * @param extensionElement the extension element
+   * @param marshaller       the marshaller
+   * @return the extensions type builder
+   */
+  ExtensionsTypeBuilder addElement(Object extensionElement, Marshaller marshaller);
+
+  /**
+   * Build extensions
+   *
+   * @param returnNullIfEmpty the return null if empty
+   * @return the extensions type
+   */
+  ExtensionsType build(boolean returnNullIfEmpty);
+
+  /**
+   * Create default extensions builder.
+   *
+   * @return the extensions builder
+   */
+  static ExtensionsTypeBuilder builder() {
+<span class="nc" id="L84">    return new DefaultBuilder();</span>
+  }
+
+  /**
+   * Create default extensions builder.
+   *
+   * @param extensionElements the extension elements
+   * @return the extensions type builder
+   */
+  static ExtensionsTypeBuilder builder(Collection&lt;? extends Element&gt; extensionElements) {
+<span class="nc" id="L94">    return new DefaultBuilder(extensionElements);</span>
+  }
+
+  /**
+   * Create default extensions builder.
+   *
+   * @param extensionsType the extensions type
+   * @return the extensions type builder
+   */
+  static ExtensionsTypeBuilder builder(ExtensionsType extensionsType) {
+<span class="nc" id="L104">    return new DefaultBuilder(extensionsType);</span>
+  }
+
+  /**
+   * The default builder.
+   */
+  class DefaultBuilder implements ExtensionsTypeBuilder {
+
+<span class="nc" id="L112">    private final List&lt;Element&gt; anies = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L114">    private XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.builder();</span>
+
+    /**
+     * Instantiates a new default builder.
+     */
+<span class="nc" id="L119">    DefaultBuilder() {</span>
+<span class="nc" id="L120">    }</span>
+
+    /**
+     * Instantiates a new default builder.
+     *
+     * @param extensionElements the extension elements
+     */
+<span class="nc" id="L127">    DefaultBuilder(Collection&lt;? extends Element&gt; extensionElements) {</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">      if (extensionElements != null) {</span>
+<span class="nc" id="L129">        anies.addAll(extensionElements);</span>
+      }
+<span class="nc" id="L131">    }</span>
+
+    /**
+     * Instantiates a new default builder.
+     *
+     * @param extensionsType the extensions type
+     */
+<span class="nc" id="L138">    DefaultBuilder(ExtensionsType extensionsType) {</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">      if (extensionsType != null) {</span>
+<span class="nc" id="L140">        anies.addAll(extensionsType.getAnies());</span>
+      }
+<span class="nc" id="L142">    }</span>
+
+    @Override
+    public ExtensionsTypeBuilder use(XmlDocumentBuilder documentBuilder) {
+<span class="nc bnc" id="L146" title="All 2 branches missed.">      if (documentBuilder != null) {</span>
+<span class="nc" id="L147">        this.documentBuilder = documentBuilder;</span>
+      }
+<span class="nc" id="L149">      return this;</span>
+    }
+
+    @Override
+    public ExtensionsTypeBuilder addElement(Element extensionElement) {
+<span class="nc bnc" id="L154" title="All 2 branches missed.">      if (extensionElement != null) {</span>
+<span class="nc" id="L155">        anies.add(extensionElement);</span>
+      }
+<span class="nc" id="L157">      return this;</span>
+    }
+
+    @Override
+    public ExtensionsTypeBuilder addElement(Object extensionElement, JAXBContext jaxbContext) {
+<span class="nc bnc" id="L162" title="All 2 branches missed.">      if (extensionElement == null) {</span>
+<span class="nc" id="L163">        return this;</span>
+      }
+<span class="nc" id="L165">      return addElement(</span>
+<span class="nc" id="L166">          documentBuilder.buildDocument(extensionElement, jaxbContext).getDocumentElement());</span>
+    }
+
+    @Override
+    public ExtensionsTypeBuilder addElement(Object extensionElement, Marshaller marshaller) {
+<span class="nc bnc" id="L171" title="All 2 branches missed.">      if (extensionElement == null) {</span>
+<span class="nc" id="L172">        return this;</span>
+      }
+<span class="nc" id="L174">      return addElement(</span>
+<span class="nc" id="L175">          documentBuilder.buildDocument(extensionElement, marshaller).getDocumentElement());</span>
+    }
+
+    @Override
+    public ExtensionsType build(boolean returnNullIfEmpty) {
+<span class="nc bnc" id="L180" title="All 4 branches missed.">      if (returnNullIfEmpty &amp;&amp; anies.isEmpty()) {</span>
+<span class="nc" id="L181">        return null;</span>
+      }
+<span class="nc" id="L183">      final ExtensionsType extensionsType = new ExtensionsType();</span>
+<span class="nc" id="L184">      extensionsType.getAnies().addAll(anies);</span>
+<span class="nc" id="L185">      return extensionsType;</span>
+    }
+
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
