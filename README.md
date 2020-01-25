@@ -6,4 +6,4 @@ A Java model of [GPX 1.1 schema](http://www.topografix.com/GPX/1/1)
 
 - [Release](https://bremersee.github.io/gpx-model/index.html)
 
-- [Snapshot](https://nexus.bremersee.org/repository/maven-sites/gpx-model/1.2.0-SNAPSHOT/index.html)
+- [Snapshot](https://nexus.bremersee.org/repository/maven-sites/gpx-model/1.1.2-SNAPSHOT/index.html)
