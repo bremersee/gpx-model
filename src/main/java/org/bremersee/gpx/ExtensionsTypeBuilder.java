@@ -53,7 +53,7 @@ public interface ExtensionsTypeBuilder {
    * Add element to the extensions.
    *
    * @param extensionElement the extension element
-   * @param jaxbContext      the jaxb context
+   * @param jaxbContext the jaxb context
    * @return the extensions type builder
    */
   ExtensionsTypeBuilder addElement(Object extensionElement, JAXBContext jaxbContext);
@@ -62,7 +62,7 @@ public interface ExtensionsTypeBuilder {
    * Add element to the extensions.
    *
    * @param extensionElement the extension element
-   * @param marshaller       the marshaller
+   * @param marshaller the marshaller
    * @return the extensions type builder
    */
   ExtensionsTypeBuilder addElement(Object extensionElement, Marshaller marshaller);
