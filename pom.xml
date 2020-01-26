@@ -7,20 +7,21 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>1.0.11</version>
+    <version>1.1.2</version>
     <relativePath/>
   </parent>
 
   <artifactId>gpx-model</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <name>GPX Model</name>
   <url>https://github.com/bremersee/gpx-model</url>
 
   <properties>
     <github.repo>gpx-model</github.repo>
     <gh-pages-staging-dir>${project.build.directory}/staging</gh-pages-staging-dir>
-    <common-model.version>1.1.7</common-model.version>
-    <garmin-model.version>1.0.1</garmin-model.version>
+
+    <common-xml.version>1.0.1</common-xml.version>
+    <garmin-model.version>1.0.2</garmin-model.version>
   </properties>
 
   <scm>
@@ -50,9 +51,15 @@
   <dependencies>
     <dependency>
       <groupId>org.bremersee</groupId>
-      <artifactId>common-model</artifactId>
-      <version>${common-model.version}</version>
+      <artifactId>common-xml</artifactId>
+      <version>${common-xml.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.bremersee</groupId>
       <artifactId>garmin-model</artifactId>
@@ -60,8 +67,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -116,6 +123,7 @@
           <schemaDirectory>src/main/xsd</schemaDirectory>
           <bindingDirectory>src/main/xjb</bindingDirectory>
           <generateDirectory>${project.build.directory}/generated-sources/jaxb</generateDirectory>
+          <locale>en_GB</locale>
           <plugins>
             <plugin>
               <groupId>org.jvnet.jaxb2_commons</groupId>
@@ -124,6 +132,18 @@
             </plugin>
           </plugins>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-jxc-jdk9</artifactId>
+            <version>2.3.0.1</version>
+          </dependency>
+          <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+            <version>1.2.0</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
