@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 
 package org.bremersee.gpx;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -28,6 +26,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ServiceLoader;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.bremersee.garmin.creationtime.v1.model.ext.CreationTimeExtension;
 import org.bremersee.garmin.gpx.v3.model.ext.AddressT;
 import org.bremersee.garmin.gpx.v3.model.ext.CategoriesT;
@@ -41,6 +41,7 @@ import org.bremersee.xml.JaxbContextDataProvider;
 import org.bremersee.xml.SchemaMode;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 
@@ -49,6 +50,7 @@ import org.springframework.core.io.ResourceLoader;
  *
  * @author Christian Bremer
  */
+@ExtendWith(SoftAssertionsExtension.class)
 class JaxbContextBuilderTest {
 
   private static final ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
@@ -76,10 +78,11 @@ class JaxbContextBuilderTest {
   /**
    * Test gpx with wpt.
    *
+   * @param softly the soft assertions
    * @throws Exception the exception
    */
   @Test
-  void testGpxWithWpt() throws Exception {
+  void testGpxWithWpt(SoftAssertions softly) throws Exception {
     CategoriesT categories = new CategoriesT();
     categories.getCategories().add("JUNIT");
 
@@ -113,52 +116,50 @@ class JaxbContextBuilderTest {
     StringWriter sw = new StringWriter();
     jaxbContextBuilder.buildMarshaller(gpx).marshal(gpx, sw);
     String xml = sw.toString();
-    assertNotNull(xml);
-    // System.out.println(xml);
+    softly.assertThat(xml).isNotNull();
 
     Gpx readGpx = (Gpx) jaxbContextBuilder.buildUnmarshaller(Gpx.class)
         .unmarshal(new StringReader(xml));
-    assertNotNull(readGpx);
-    assertFalse(readGpx.getWpts().isEmpty());
+    softly.assertThat(readGpx).isNotNull();
+    softly.assertThat(readGpx.getWpts()).isNotEmpty();
 
     WptType readWpt = readGpx.getWpts().get(0);
-    assertEquals(wpt.getLat(), readWpt.getLat());
-    assertEquals(wpt.getLon(), readWpt.getLon());
-    assertEquals(wpt.getSrc(), readWpt.getSrc());
+    softly.assertThat(readWpt.getLat()).isEqualTo(wpt.getLat());
+    softly.assertThat(readWpt.getLon()).isEqualTo(wpt.getLon());
+    softly.assertThat(readWpt.getSrc()).isEqualTo(wpt.getSrc());
   }
 
   /**
    * Test address data.
    *
+   * @param softly the soft assertions
    * @throws Exception the exception
    */
   @Test
-  void testAddressData() throws Exception {
+  void testAddressData(SoftAssertions softly) throws Exception {
     final Object obj = unmarshalClassPathResource("classpath:Adresse.GPX");
-    assertNotNull(obj);
-    assertTrue(obj instanceof Gpx);
+    softly.assertThat(obj).isInstanceOf(Gpx.class);
 
     final Gpx gpx = (Gpx) obj;
-    assertFalse(gpx.getWpts().isEmpty());
+    softly.assertThat(gpx.getWpts()).isNotEmpty();
 
     final WptType wpt = gpx.getWpts().get(0);
-    assertNotNull(wpt.getExtensions());
+    softly.assertThat(wpt.getExtensions()).isNotNull();
 
     final ExtensionsType extensions = wpt.getExtensions();
-    assertNotNull(extensions.getAnies());
-    assertFalse(extensions.getAnies().isEmpty());
+    softly.assertThat(extensions.getAnies()).isNotEmpty();
 
     final List<WaypointExtension> waypointExtensions = GpxJaxbContextHelper.findExtensions(
         WaypointExtension.class,
         true,
         GpxJaxbContextHelper.parseExtensions(extensions, jaxbContextBuilder.buildJaxbContext()));
+    softly.assertThat(waypointExtensions).isNotEmpty();
 
-    assertFalse(waypointExtensions.isEmpty());
     WaypointExtension wptExt = waypointExtensions.get(0);
-    assertNotNull(wptExt.getAddress());
-    assertNotNull(wptExt.getAddress().getStreetAddresses());
-    assertFalse(wptExt.getAddress().getStreetAddresses().isEmpty());
-    assertEquals("Seerosenweg 1", wptExt.getAddress().getStreetAddresses().get(0));
+    softly.assertThat(wptExt).isNotNull();
+    softly.assertThat(wptExt.getAddress()).isNotNull();
+    softly.assertThat(wptExt.getAddress().getStreetAddresses()).isNotEmpty();
+    softly.assertThat(wptExt.getAddress().getStreetAddresses()).contains("Seerosenweg 1");
 
     Optional<WaypointExtension> optionalWaypointExtension = GpxJaxbContextHelper
         .findFirstExtension(
@@ -167,68 +168,67 @@ class JaxbContextBuilderTest {
             extensions,
             jaxbContextBuilder.buildUnmarshaller());
 
-    assertTrue(optionalWaypointExtension.isPresent());
-    wptExt = optionalWaypointExtension.get();
-    assertNotNull(wptExt.getAddress());
-    assertNotNull(wptExt.getAddress().getStreetAddresses());
-    assertFalse(wptExt.getAddress().getStreetAddresses().isEmpty());
-    assertEquals("Seerosenweg 1", wptExt.getAddress().getStreetAddresses().get(0));
+    softly.assertThat(optionalWaypointExtension)
+        .map(WaypointExtension::getAddress)
+        .map(AddressT::getStreetAddresses)
+        .contains(List.of("Seerosenweg 1"));
   }
 
   /**
    * Test picture data.
    *
+   * @param softly the soft assertions
    * @throws Exception the exception
    */
   @Test
-  void testPictureData() throws Exception {
+  void testPictureData(SoftAssertions softly) throws Exception {
     final Object obj = unmarshalClassPathResource("classpath:Bild.GPX");
-    assertNotNull(obj);
-    assertTrue(obj instanceof Gpx);
+    softly.assertThat(obj).isInstanceOf(Gpx.class);
 
     final Gpx gpx = (Gpx) obj;
-    assertFalse(gpx.getWpts().isEmpty());
+    softly.assertThat(gpx.getWpts()).isNotEmpty();
 
     final WptType wpt = gpx.getWpts().get(0);
-    assertNotNull(wpt.getExtensions());
+    softly.assertThat(wpt.getExtensions()).isNotNull();
 
     final ExtensionsType extensions = wpt.getExtensions();
-    assertNotNull(extensions.getAnies());
-    assertFalse(extensions.getAnies().isEmpty());
+    softly.assertThat(extensions.getAnies()).isNotEmpty();
 
     Optional<CreationTimeExtension> cr = GpxJaxbContextHelper.findFirstExtension(
         CreationTimeExtension.class, true, extensions, jaxbContextBuilder.buildJaxbContext());
-    assertTrue(cr.isPresent());
-    final XMLGregorianCalendar cal = cr.get().getCreationTime();
-    assertNotNull(cal);
-    assertEquals(2012, cal.getYear());
+
+    softly.assertThat(cr)
+        .map(CreationTimeExtension::getCreationTime)
+        .map(XMLGregorianCalendar::getYear)
+        .get()
+        .isEqualTo(2012);
   }
 
   /**
    * Test route.
    *
+   * @param softly the soft assertions
    * @throws Exception the exception
    */
   @Test
-  void testRoute() throws Exception {
+  void testRoute(SoftAssertions softly) throws Exception {
     Object obj = unmarshalClassPathResource("classpath:Route.GPX");
-    assertNotNull(obj);
-    assertTrue(obj instanceof Gpx);
+    softly.assertThat(obj).isInstanceOf(Gpx.class);
 
     StringWriter sw = new StringWriter();
     jaxbContextBuilder.buildMarshaller(obj).marshal(obj, sw);
     String xml = sw.toString();
-    assertNotNull(xml);
-    assertTrue(xml.length() > 0);
+    softly.assertThat(xml).containsIgnoringCase("<gpx");
   }
 
   /**
    * Test track.
    *
+   * @param softly the soft assertions
    * @throws Exception the exception
    */
   @Test
-  void testTrack() throws Exception {
+  void testTrack(SoftAssertions softly) throws Exception {
     Object obj = unmarshalClassPathResource("classpath:Track.GPX");
     assertNotNull(obj);
     assertTrue(obj instanceof Gpx);
@@ -236,8 +236,7 @@ class JaxbContextBuilderTest {
     StringWriter sw = new StringWriter();
     jaxbContextBuilder.buildMarshaller(obj).marshal(obj, sw);
     String xml = sw.toString();
-    assertNotNull(xml);
-    assertTrue(xml.length() > 0);
+    softly.assertThat(xml).containsIgnoringCase("<gpx");
   }
 
 }
