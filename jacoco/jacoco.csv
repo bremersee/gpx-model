@@ -2,8 +2,8 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 GPX Model,org.bremersee.gpx.model,LinkType,17,7,0,0,7,3,5,2,5,2
 GPX Model,org.bremersee.gpx.model,RteType,71,3,4,0,27,1,18,1,16,1
 GPX Model,org.bremersee.gpx.model,ObjectFactory,59,0,0,0,16,0,15,0,15,0
-GPX Model,org.bremersee.gpx.model,MetadataType,67,3,2,0,27,1,18,1,17,1
 GPX Model,org.bremersee.gpx.model,PersonType,24,0,0,0,10,0,7,0,7,0
+GPX Model,org.bremersee.gpx.model,MetadataType,67,3,2,0,27,1,18,1,17,1
 GPX Model,org.bremersee.gpx.model,CopyrightType,24,0,0,0,10,0,7,0,7,0
 GPX Model,org.bremersee.gpx.model,Gpx,47,22,6,2,16,8,11,5,8,4
 GPX Model,org.bremersee.gpx.model,ExtensionsType,0,14,0,2,0,4,0,3,0,2
@@ -14,7 +14,7 @@ GPX Model,org.bremersee.gpx.model,TrkType,71,3,4,0,27,1,18,1,16,1
 GPX Model,org.bremersee.gpx.model,PtType,31,0,0,0,13,0,9,0,9,0
 GPX Model,org.bremersee.gpx.model,TrksegType,18,3,2,0,6,1,4,1,3,1
 GPX Model,org.bremersee.gpx.model,EmailType,17,0,0,0,7,0,5,0,5,0
-GPX Model,org.bremersee.gpx,GpxJaxbContextHelper,39,163,19,21,9,32,17,13,1,9
-GPX Model,org.bremersee.gpx,ExtensionsTypeBuilder,10,4,0,0,2,1,2,1,2,1
+GPX Model,org.bremersee.gpx,GpxJaxbContextHelper,6,196,12,28,0,41,12,18,0,10
+GPX Model,org.bremersee.gpx,ExtensionsTypeBuilder,0,14,0,0,0,3,0,3,0,3
 GPX Model,org.bremersee.gpx,GpxJaxbContextDataProvider,0,11,0,0,0,3,0,2,0,2
-GPX Model,org.bremersee.gpx,ExtensionsTypeBuilder.DefaultBuilder,61,49,12,4,17,14,12,4,4,4
+GPX Model,org.bremersee.gpx,ExtensionsTypeBuilder.DefaultBuilder,0,110,3,13,0,31,3,13,0,8
