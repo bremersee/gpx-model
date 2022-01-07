@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * The type Gpx jaxb context helper test.
+ * The gpx jaxb context helper test.
  */
 @ExtendWith(SoftAssertionsExtension.class)
 class GpxJaxbContextHelperTest {
