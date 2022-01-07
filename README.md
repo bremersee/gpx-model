@@ -1,6 +1,6 @@
 # GPX 1.1 Java Model
 
-[![codecov](https://codecov.io/gh/bremersee/gpx-model/branch/master/graph/badge.svg)](https://codecov.io/gh/bremersee/gpx-model)
+[![codecov](https://codecov.io/gh/bremersee/gpx-model/branch/develop/graph/badge.svg)](https://codecov.io/gh/bremersee/gpx-model)
 
 A Java model of [GPX 1.1 schema](http://www.topografix.com/GPX/1/1)
 
