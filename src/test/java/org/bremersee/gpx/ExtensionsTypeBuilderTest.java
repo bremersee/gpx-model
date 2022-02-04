@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
 @ExtendWith(SoftAssertionsExtension.class)
 class ExtensionsTypeBuilderTest {
 
-  private static final XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.builder();
+  private static final XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.newInstance();
 
   private static JaxbContextBuilder jaxbContextBuilder;
 
@@ -49,7 +49,7 @@ class ExtensionsTypeBuilderTest {
    */
   @BeforeAll
   static void createJaxbContextBuilder() {
-    jaxbContextBuilder = JaxbContextBuilder.builder()
+    jaxbContextBuilder = JaxbContextBuilder.newInstance()
         .withSchemaMode(SchemaMode.ALWAYS)
         .processAll(ServiceLoader.load(JaxbContextDataProvider.class))
         .initJaxbContext();
@@ -60,7 +60,7 @@ class ExtensionsTypeBuilderTest {
    */
   @Test
   void use() {
-    ExtensionsTypeBuilder actual = ExtensionsTypeBuilder.builder()
+    ExtensionsTypeBuilder actual = ExtensionsTypeBuilder.newInstance()
         .use(documentBuilder);
     Assertions.assertThat(actual).isNotNull();
   }
@@ -73,21 +73,21 @@ class ExtensionsTypeBuilderTest {
    */
   @Test
   void addNoElement(SoftAssertions softly) throws Exception {
-    ExtensionsType actual = ExtensionsTypeBuilder.builder()
+    ExtensionsType actual = ExtensionsTypeBuilder.newInstance()
         .addElement(null)
         .build(false);
 
     softly.assertThat(actual).isNotNull();
     softly.assertThat(actual.getAnies()).isEmpty();
 
-    actual = ExtensionsTypeBuilder.builder()
+    actual = ExtensionsTypeBuilder.newInstance()
         .addElement(null, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
     softly.assertThat(actual).isNotNull();
     softly.assertThat(actual.getAnies()).isEmpty();
 
-    actual = ExtensionsTypeBuilder.builder()
+    actual = ExtensionsTypeBuilder.newInstance()
         .addElement(null, jaxbContextBuilder.buildJaxbContext().createMarshaller())
         .build(true);
 
@@ -116,7 +116,7 @@ class ExtensionsTypeBuilderTest {
         .buildDocument(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .getDocumentElement();
 
-    ExtensionsType actual = ExtensionsTypeBuilder.builder()
+    ExtensionsType actual = ExtensionsTypeBuilder.newInstance()
         .addElement(element)
         .build(true);
 
@@ -142,7 +142,7 @@ class ExtensionsTypeBuilderTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType actual = ExtensionsTypeBuilder.builder()
+    ExtensionsType actual = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(true);
 
@@ -169,7 +169,7 @@ class ExtensionsTypeBuilderTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType actual = ExtensionsTypeBuilder.builder()
+    ExtensionsType actual = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext().createMarshaller())
         .build(true);
 
@@ -206,7 +206,7 @@ class ExtensionsTypeBuilderTest {
         .buildDocument(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .getDocumentElement();
 
-    ExtensionsType actual = ExtensionsTypeBuilder.builder(List.of(element))
+    ExtensionsType actual = ExtensionsTypeBuilder.newInstance(List.of(element))
         .build(true);
 
     softly.assertThat(actual).isNotNull();
@@ -235,10 +235,10 @@ class ExtensionsTypeBuilderTest {
         .buildDocument(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .getDocumentElement();
 
-    ExtensionsType tmp = ExtensionsTypeBuilder.builder(List.of(element))
+    ExtensionsType tmp = ExtensionsTypeBuilder.newInstance(List.of(element))
         .build(true);
 
-    ExtensionsType actual = ExtensionsTypeBuilder.builder(tmp)
+    ExtensionsType actual = ExtensionsTypeBuilder.newInstance(tmp)
         .build(true);
 
     softly.assertThat(actual).isNotNull();

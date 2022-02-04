@@ -57,7 +57,7 @@ class GpxJaxbContextHelperTest {
    */
   @BeforeAll
   static void createJaxbContextBuilder() {
-    jaxbContextBuilder = JaxbContextBuilder.builder()
+    jaxbContextBuilder = JaxbContextBuilder.newInstance()
         .withSchemaMode(SchemaMode.ALWAYS)
         .processAll(ServiceLoader.load(JaxbContextDataProvider.class))
         .initJaxbContext();
@@ -82,7 +82,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
@@ -124,7 +124,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
@@ -160,7 +160,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
@@ -299,7 +299,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
@@ -337,7 +337,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
@@ -401,7 +401,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
@@ -429,7 +429,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 

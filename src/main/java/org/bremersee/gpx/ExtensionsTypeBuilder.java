@@ -79,7 +79,7 @@ public interface ExtensionsTypeBuilder {
    *
    * @return the extensions builder
    */
-  static ExtensionsTypeBuilder builder() {
+  static ExtensionsTypeBuilder newInstance() {
     return new DefaultBuilder();
   }
 
@@ -89,7 +89,7 @@ public interface ExtensionsTypeBuilder {
    * @param extensionElements the extension elements
    * @return the extensions type builder
    */
-  static ExtensionsTypeBuilder builder(Collection<? extends Element> extensionElements) {
+  static ExtensionsTypeBuilder newInstance(Collection<? extends Element> extensionElements) {
     return new DefaultBuilder(extensionElements);
   }
 
@@ -99,7 +99,7 @@ public interface ExtensionsTypeBuilder {
    * @param extensionsType the extensions type
    * @return the extensions type builder
    */
-  static ExtensionsTypeBuilder builder(ExtensionsType extensionsType) {
+  static ExtensionsTypeBuilder newInstance(ExtensionsType extensionsType) {
     return new DefaultBuilder(extensionsType);
   }
 
@@ -110,7 +110,7 @@ public interface ExtensionsTypeBuilder {
 
     private final List<Element> anies = new ArrayList<>();
 
-    private XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.builder();
+    private XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.newInstance();
 
     /**
      * Instantiates a new default builder.
