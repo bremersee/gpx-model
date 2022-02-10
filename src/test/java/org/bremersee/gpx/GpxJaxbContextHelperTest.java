@@ -57,7 +57,7 @@ class GpxJaxbContextHelperTest {
    */
   @BeforeAll
   static void createJaxbContextBuilder() {
-    jaxbContextBuilder = JaxbContextBuilder.builder()
+    jaxbContextBuilder = JaxbContextBuilder.newInstance()
         .withSchemaMode(SchemaMode.ALWAYS)
         .processAll(ServiceLoader.load(JaxbContextDataProvider.class))
         .initJaxbContext();
@@ -82,7 +82,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
@@ -124,7 +124,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
@@ -160,7 +160,7 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
@@ -299,12 +299,13 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
     List<WaypointExtension> actual = GpxJaxbContextHelper
-        .findExtensions(WaypointExtension.class, false, extensions, jaxbContextBuilder.buildJaxbContext());
+        .findExtensions(WaypointExtension.class, false, extensions,
+            jaxbContextBuilder.buildJaxbContext());
 
     softly.assertThat(actual).hasSize(1);
 
@@ -337,12 +338,13 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
     List<WaypointExtension> actual = GpxJaxbContextHelper
-        .findExtensions(WaypointExtension.class, false, extensions, jaxbContextBuilder.buildUnmarshaller());
+        .findExtensions(WaypointExtension.class, false, extensions,
+            jaxbContextBuilder.buildUnmarshaller());
 
     softly.assertThat(actual).hasSize(1);
 
@@ -401,12 +403,13 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
     Optional<WaypointExtension> actual = GpxJaxbContextHelper
-        .findFirstExtension(WaypointExtension.class, false, extensions, jaxbContextBuilder.buildUnmarshaller());
+        .findFirstExtension(WaypointExtension.class, false, extensions,
+            jaxbContextBuilder.buildUnmarshaller());
 
     softly.assertThat(actual).isPresent();
   }
@@ -429,12 +432,13 @@ class GpxJaxbContextHelperTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensions = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensions = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
         .build(false);
 
     Optional<WaypointExtension> actual = GpxJaxbContextHelper
-        .findFirstExtension(WaypointExtension.class, false, extensions, jaxbContextBuilder.buildJaxbContext());
+        .findFirstExtension(WaypointExtension.class, false, extensions,
+            jaxbContextBuilder.buildJaxbContext());
 
     softly.assertThat(actual).isPresent();
   }

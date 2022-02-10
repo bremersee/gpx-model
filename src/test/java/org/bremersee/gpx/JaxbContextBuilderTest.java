@@ -62,7 +62,7 @@ class JaxbContextBuilderTest {
    */
   @BeforeAll
   static void createJaxbContextBuilder() {
-    jaxbContextBuilder = JaxbContextBuilder.builder()
+    jaxbContextBuilder = JaxbContextBuilder.newInstance()
         .withSchemaMode(SchemaMode.ALWAYS)
         .processAll(ServiceLoader.load(JaxbContextDataProvider.class))
         .initJaxbContext();
@@ -94,7 +94,7 @@ class JaxbContextBuilderTest {
     waypointExtension.setCategories(categories);
     waypointExtension.setAddress(address);
 
-    ExtensionsType extensionsType = ExtensionsTypeBuilder.builder()
+    ExtensionsType extensionsType = ExtensionsTypeBuilder.newInstance()
         .addElement(waypointExtension, jaxbContextBuilder.buildMarshaller(waypointExtension))
         .build(true);
 
