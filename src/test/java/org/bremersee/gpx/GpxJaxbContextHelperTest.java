@@ -304,7 +304,8 @@ class GpxJaxbContextHelperTest {
         .build(false);
 
     List<WaypointExtension> actual = GpxJaxbContextHelper
-        .findExtensions(WaypointExtension.class, false, extensions, jaxbContextBuilder.buildJaxbContext());
+        .findExtensions(WaypointExtension.class, false, extensions,
+            jaxbContextBuilder.buildJaxbContext());
 
     softly.assertThat(actual).hasSize(1);
 
@@ -342,7 +343,8 @@ class GpxJaxbContextHelperTest {
         .build(false);
 
     List<WaypointExtension> actual = GpxJaxbContextHelper
-        .findExtensions(WaypointExtension.class, false, extensions, jaxbContextBuilder.buildUnmarshaller());
+        .findExtensions(WaypointExtension.class, false, extensions,
+            jaxbContextBuilder.buildUnmarshaller());
 
     softly.assertThat(actual).hasSize(1);
 
@@ -406,7 +408,8 @@ class GpxJaxbContextHelperTest {
         .build(false);
 
     Optional<WaypointExtension> actual = GpxJaxbContextHelper
-        .findFirstExtension(WaypointExtension.class, false, extensions, jaxbContextBuilder.buildUnmarshaller());
+        .findFirstExtension(WaypointExtension.class, false, extensions,
+            jaxbContextBuilder.buildUnmarshaller());
 
     softly.assertThat(actual).isPresent();
   }
@@ -434,7 +437,8 @@ class GpxJaxbContextHelperTest {
         .build(false);
 
     Optional<WaypointExtension> actual = GpxJaxbContextHelper
-        .findFirstExtension(WaypointExtension.class, false, extensions, jaxbContextBuilder.buildJaxbContext());
+        .findFirstExtension(WaypointExtension.class, false, extensions,
+            jaxbContextBuilder.buildJaxbContext());
 
     softly.assertThat(actual).isPresent();
   }
