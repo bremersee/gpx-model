@@ -38,71 +38,75 @@ public abstract class GpxJaxbContextHelper {
   }
 
   /**
-   * Parses the elemants of the given GPX extensions ({@link ExtensionsType#getAnies()}) with the given {@link
-   * JAXBContext}:
+   * Parses the elemants of the given GPX extensions ({@link ExtensionsType#getAnies()}) with the
+   * given {@link JAXBContext}:
    *
    * &lt;p&gt;If the {@link JAXBContext} can unmarshall the {@link Element} to a concrete object, a map
-   * entry will be created with the class of the object as key and a list with all unmarshalled objects as value.
+   * entry will be created with the class of the object as key and a list with all unmarshalled
+   * objects as value.
    *
    * &lt;p&gt;If the {@link JAXBContext} cannot unmarshall the {@link Element} to a concrete object, a
-   * map entry will be created with the class of the element as key and a list with all elements as value.
+   * map entry will be created with the class of the element as key and a list with all elements as
+   * value.
    *
    * @param extensions the GPX extension
    * @param jaxbContext the {@link JAXBContext} to parse the elements
-   * @return an unmodifiable map with the unmarshalled objects (key is the class of the objects, value is a list with
-   *     all unmarshalled objects of this class)
+   * @return an unmodifiable map with the unmarshalled objects (key is the class of the objects,
+   *     value is a list with all unmarshalled objects of this class)
    */
   public static Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; parseExtensions(
       final ExtensionsType extensions,
       final JAXBContext jaxbContext) {
 
     try {
-<span class="fc" id="L60">      return parseExtensions(extensions, jaxbContext.createUnmarshaller());</span>
-<span class="fc" id="L61">    } catch (final Exception ignored) {</span>
-<span class="fc" id="L62">      return parseExtensions(extensions, (Unmarshaller) null);</span>
+<span class="fc" id="L62">      return parseExtensions(extensions, jaxbContext.createUnmarshaller());</span>
+<span class="fc" id="L63">    } catch (final Exception ignored) {</span>
+<span class="fc" id="L64">      return parseExtensions(extensions, (Unmarshaller) null);</span>
     }
   }
 
   /**
-   * Parses the elemants of the given GPX extensions ({@link ExtensionsType#getAnies()}) with the given {@link
-   * Unmarshaller}:
+   * Parses the elemants of the given GPX extensions ({@link ExtensionsType#getAnies()}) with the
+   * given {@link Unmarshaller}:
    *
    * &lt;p&gt;If the {@link Unmarshaller} can unmarshall the {@link Element} to a concrete object, a map
-   * entry will be created with the class of the object as key and a list with all unmarshalled objects as value.
+   * entry will be created with the class of the object as key and a list with all unmarshalled
+   * objects as value.
    *
    * &lt;p&gt;If the {@link Unmarshaller} cannot unmarshall the {@link Element} to a concrete object, a
-   * map entry will be created with the class of the element as key and a list with all elements as value.
+   * map entry will be created with the class of the element as key and a list with all elements as
+   * value.
    *
    * @param extensions the GPX extension
    * @param unmarshaller the {@link Unmarshaller} to parse the elements
-   * @return an unmodifiable map with the unmarshalled objects (key is the class of the objects, value is a list with
-   *     all unmarshalled objects of this class)
+   * @return an unmodifiable map with the unmarshalled objects (key is the class of the objects,
+   *     value is a list with all unmarshalled objects of this class)
    */
   public static Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; parseExtensions(
       final ExtensionsType extensions,
       final Unmarshaller unmarshaller) {
 
-<span class="fc" id="L85">    final Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; map = new HashMap&lt;&gt;();</span>
-<span class="pc bpc" id="L86" title="1 of 4 branches missed.">    if (extensions == null || extensions.getAnies() == null) {</span>
-<span class="fc" id="L87">      return map;</span>
+<span class="fc" id="L89">    final Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; map = new HashMap&lt;&gt;();</span>
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">    if (extensions == null || extensions.getAnies() == null) {</span>
+<span class="fc" id="L91">      return map;</span>
     }
-<span class="fc bfc" id="L89" title="All 2 branches covered.">    for (final Element element : extensions.getAnies()) {</span>
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">      if (element != null) {</span>
-<span class="fc" id="L91">        final Object strictElement = parseElement(element, unmarshaller);</span>
-<span class="fc" id="L92">        final List&lt;Object&gt; values = map.computeIfAbsent(</span>
-<span class="fc" id="L93">            strictElement.getClass(), k -&gt; new ArrayList&lt;&gt;());</span>
-<span class="fc" id="L94">        values.add(strictElement);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">    for (final Element element : extensions.getAnies()) {</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">      if (element != null) {</span>
+<span class="fc" id="L95">        final Object strictElement = parseElement(element, unmarshaller);</span>
+<span class="fc" id="L96">        final List&lt;Object&gt; values = map.computeIfAbsent(</span>
+<span class="fc" id="L97">            strictElement.getClass(), k -&gt; new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L98">        values.add(strictElement);</span>
       }
-<span class="fc" id="L96">    }</span>
-<span class="fc" id="L97">    return Collections.unmodifiableMap(map);</span>
+<span class="fc" id="L100">    }</span>
+<span class="fc" id="L101">    return Collections.unmodifiableMap(map);</span>
   }
 
   private static Object parseElement(final Element element, final Unmarshaller unmarshaller) {
     try {
-<span class="fc" id="L102">      return unmarshaller.unmarshal(element);</span>
+<span class="fc" id="L106">      return unmarshaller.unmarshal(element);</span>
 
-<span class="fc" id="L104">    } catch (final Exception ignored) {</span>
-<span class="fc" id="L105">      return element;</span>
+<span class="fc" id="L108">    } catch (final Exception ignored) {</span>
+<span class="fc" id="L109">      return element;</span>
     }
   }
 
@@ -110,8 +114,8 @@ public abstract class GpxJaxbContextHelper {
    * Find all extensions of the given type.
    *
    * @param cls the type
-   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link Class#equals(Object)} will be
-   *     used
+   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link
+   *     Class#equals(Object)} will be used
    * @param parsedExtensions the parsed extensions (see {@link GpxJaxbContextHelper#parseExtensions(ExtensionsType,
    *     JAXBContext)})
    * @param &lt;T&gt; the type
@@ -122,35 +126,35 @@ public abstract class GpxJaxbContextHelper {
       final boolean instancesOf,
       final Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; parsedExtensions) {
 
-<span class="pc bpc" id="L125" title="2 of 6 branches missed.">    if (cls == null || parsedExtensions == null || parsedExtensions.isEmpty()) {</span>
-<span class="fc" id="L126">      return Collections.emptyList();</span>
+<span class="pc bpc" id="L129" title="2 of 6 branches missed.">    if (cls == null || parsedExtensions == null || parsedExtensions.isEmpty()) {</span>
+<span class="fc" id="L130">      return Collections.emptyList();</span>
     }
-<span class="fc" id="L128">    final List&lt;T&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L129" title="All 2 branches covered.">    for (Map.Entry&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; entry : parsedExtensions.entrySet()) {</span>
-<span class="fc" id="L130">      final Class&lt;?&gt; c = entry.getKey();</span>
-<span class="pc bpc" id="L131" title="1 of 6 branches missed.">      if (cls.equals(c) || (instancesOf &amp;&amp; cls.isAssignableFrom(c))) {</span>
-<span class="fc" id="L132">        final List&lt;Object&gt; values = entry.getValue();</span>
-<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if (values != null) {</span>
-<span class="fc bfc" id="L134" title="All 2 branches covered.">          for (final Object value : values) {</span>
-<span class="pc bpc" id="L135" title="1 of 2 branches missed.">            if (value != null</span>
-<span class="pc bpc" id="L136" title="1 of 4 branches missed.">                &amp;&amp; (cls.equals(value.getClass())</span>
-<span class="pc bpc" id="L137" title="1 of 2 branches missed.">                || (instancesOf &amp;&amp; cls.isAssignableFrom(value.getClass())))) {</span>
+<span class="fc" id="L132">    final List&lt;T&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">    for (Map.Entry&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; entry : parsedExtensions.entrySet()) {</span>
+<span class="fc" id="L134">      final Class&lt;?&gt; c = entry.getKey();</span>
+<span class="pc bpc" id="L135" title="1 of 6 branches missed.">      if (cls.equals(c) || (instancesOf &amp;&amp; cls.isAssignableFrom(c))) {</span>
+<span class="fc" id="L136">        final List&lt;Object&gt; values = entry.getValue();</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        if (values != null) {</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">          for (final Object value : values) {</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">            if (value != null</span>
+<span class="pc bpc" id="L140" title="1 of 4 branches missed.">                &amp;&amp; (cls.equals(value.getClass())</span>
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">                || (instancesOf &amp;&amp; cls.isAssignableFrom(value.getClass())))) {</span>
               //noinspection unchecked
-<span class="fc" id="L139">              list.add((T) value);</span>
+<span class="fc" id="L143">              list.add((T) value);</span>
             }
-<span class="fc" id="L141">          }</span>
+<span class="fc" id="L145">          }</span>
         }
       }
-<span class="fc" id="L144">    }</span>
-<span class="fc" id="L145">    return Collections.unmodifiableList(list);</span>
+<span class="fc" id="L148">    }</span>
+<span class="fc" id="L149">    return Collections.unmodifiableList(list);</span>
   }
 
   /**
    * Find all extensions of the given type.
    *
    * @param cls the type
-   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link Class#equals(Object)} will be
-   *     used
+   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link
+   *     Class#equals(Object)} will be used
    * @param extensions the GPX extensions
    * @param jaxbContext the {@link JAXBContext} to parse the elements
    * @param &lt;T&gt; the type
@@ -162,15 +166,15 @@ public abstract class GpxJaxbContextHelper {
       final ExtensionsType extensions,
       final JAXBContext jaxbContext) {
 
-<span class="fc" id="L165">    return findExtensions(cls, instancesOf, parseExtensions(extensions, jaxbContext));</span>
+<span class="fc" id="L169">    return findExtensions(cls, instancesOf, parseExtensions(extensions, jaxbContext));</span>
   }
 
   /**
    * Find all extensions of the given type.
    *
    * @param cls the type
-   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link Class#equals(Object)} will be
-   *     used
+   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link
+   *     Class#equals(Object)} will be used
    * @param extensions the GPX extensions
    * @param unmarshaller the {@link Unmarshaller} to parse the elements
    * @param &lt;T&gt; the type
@@ -182,39 +186,41 @@ public abstract class GpxJaxbContextHelper {
       final ExtensionsType extensions,
       final Unmarshaller unmarshaller) {
 
-<span class="fc" id="L185">    return findExtensions(cls, instancesOf, parseExtensions(extensions, unmarshaller));</span>
+<span class="fc" id="L189">    return findExtensions(cls, instancesOf, parseExtensions(extensions, unmarshaller));</span>
   }
 
   /**
    * Find the first extension of the given type.
    *
    * @param cls the type
-   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link Class#equals(Object)} will be
-   *     used
+   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link
+   *     Class#equals(Object)} will be used
    * @param parsedExtensions the parsed extensions (see {@link GpxJaxbContextHelper#parseExtensions(ExtensionsType,
    *     JAXBContext)})
    * @param &lt;T&gt; the type
-   * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the parsed element
+   * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the
+   *     parsed element
    */
   public static &lt;T&gt; Optional&lt;T&gt; findFirstExtension(
       final Class&lt;T&gt; cls,
       final boolean instancesOf,
       final Map&lt;Class&lt;?&gt;, List&lt;Object&gt;&gt; parsedExtensions) {
 
-<span class="fc" id="L204">    final List&lt;T&gt; list = findExtensions(cls, instancesOf, parsedExtensions);</span>
-<span class="pc bpc" id="L205" title="1 of 2 branches missed.">    return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));</span>
+<span class="fc" id="L209">    final List&lt;T&gt; list = findExtensions(cls, instancesOf, parsedExtensions);</span>
+<span class="pc bpc" id="L210" title="1 of 2 branches missed.">    return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));</span>
   }
 
   /**
    * Find the first extension of the given type.
    *
    * @param cls the type
-   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link Class#equals(Object)} will be
-   *     used
+   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link
+   *     Class#equals(Object)} will be used
    * @param extensions the GPX extensions
    * @param jaxbContext the {@link JAXBContext} to parse the elements
    * @param &lt;T&gt; the type
-   * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the parsed element
+   * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the
+   *     parsed element
    */
   public static &lt;T&gt; Optional&lt;T&gt; findFirstExtension(
       final Class&lt;T&gt; cls,
@@ -222,20 +228,21 @@ public abstract class GpxJaxbContextHelper {
       final ExtensionsType extensions,
       final JAXBContext jaxbContext) {
 
-<span class="fc" id="L225">    final List&lt;T&gt; list = findExtensions(cls, instancesOf, extensions, jaxbContext);</span>
-<span class="pc bpc" id="L226" title="1 of 2 branches missed.">    return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));</span>
+<span class="fc" id="L231">    final List&lt;T&gt; list = findExtensions(cls, instancesOf, extensions, jaxbContext);</span>
+<span class="pc bpc" id="L232" title="1 of 2 branches missed.">    return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));</span>
   }
 
   /**
    * Find the first extension of the given type.
    *
    * @param cls the type
-   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link Class#equals(Object)} will be
-   *     used
+   * @param instancesOf if {@code true} instanceof will be used, otherwise {@link
+   *     Class#equals(Object)} will be used
    * @param extensions the GPX extensions
    * @param unmarshaller the {@link Unmarshaller} to parse the elements
    * @param &lt;T&gt; the type
-   * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the parsed element
+   * @return {@link Optional#empty()} if there is no such element, otherwise an optional with the
+   *     parsed element
    */
   public static &lt;T&gt; Optional&lt;T&gt; findFirstExtension(
       final Class&lt;T&gt; cls,
@@ -243,9 +250,9 @@ public abstract class GpxJaxbContextHelper {
       final ExtensionsType extensions,
       final Unmarshaller unmarshaller) {
 
-<span class="fc" id="L246">    final List&lt;T&gt; list = findExtensions(cls, instancesOf, extensions, unmarshaller);</span>
-<span class="pc bpc" id="L247" title="1 of 2 branches missed.">    return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));</span>
+<span class="fc" id="L253">    final List&lt;T&gt; list = findExtensions(cls, instancesOf, extensions, unmarshaller);</span>
+<span class="pc bpc" id="L254" title="1 of 2 branches missed.">    return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));</span>
   }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

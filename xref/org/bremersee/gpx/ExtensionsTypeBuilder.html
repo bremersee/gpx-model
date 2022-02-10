@@ -87,7 +87,7 @@
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">   *</em>
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">   * @return the extensions builder</em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>    <strong class="jxr_keyword">static</strong> <a name="ExtensionsTypeBuilder" href="../../../org/bremersee/gpx/ExtensionsTypeBuilder.html#ExtensionsTypeBuilder">ExtensionsTypeBuilder</a> builder() {
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>    <strong class="jxr_keyword">static</strong> <a name="ExtensionsTypeBuilder" href="../../../org/bremersee/gpx/ExtensionsTypeBuilder.html#ExtensionsTypeBuilder">ExtensionsTypeBuilder</a> newInstance() {
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> DefaultBuilder();
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>    }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
@@ -97,7 +97,7 @@
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment">   * @param extensionElements the extension elements</em>
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">   * @return the extensions type builder</em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>    <strong class="jxr_keyword">static</strong> <a name="ExtensionsTypeBuilder" href="../../../org/bremersee/gpx/ExtensionsTypeBuilder.html#ExtensionsTypeBuilder">ExtensionsTypeBuilder</a> builder(Collection&lt;? <strong class="jxr_keyword">extends</strong> Element&gt; extensionElements) {
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>    <strong class="jxr_keyword">static</strong> <a name="ExtensionsTypeBuilder" href="../../../org/bremersee/gpx/ExtensionsTypeBuilder.html#ExtensionsTypeBuilder">ExtensionsTypeBuilder</a> newInstance(Collection&lt;? <strong class="jxr_keyword">extends</strong> Element&gt; extensionElements) {
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> DefaultBuilder(extensionElements);
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>    }
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
@@ -107,7 +107,7 @@
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_javadoccomment">   * @param extensionsType the extensions type</em>
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">   * @return the extensions type builder</em>
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>   <strong class="jxr_keyword">static</strong> <a name="ExtensionsTypeBuilder" href="../../../org/bremersee/gpx/ExtensionsTypeBuilder.html#ExtensionsTypeBuilder">ExtensionsTypeBuilder</a> builder(ExtensionsType extensionsType) {
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>   <strong class="jxr_keyword">static</strong> <a name="ExtensionsTypeBuilder" href="../../../org/bremersee/gpx/ExtensionsTypeBuilder.html#ExtensionsTypeBuilder">ExtensionsTypeBuilder</a> newInstance(ExtensionsType extensionsType) {
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> DefaultBuilder(extensionsType);
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>   }
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 
@@ -118,7 +118,7 @@
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> List&lt;Element&gt; anies = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> 
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>     <strong class="jxr_keyword">private</strong> XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.builder();
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>     <strong class="jxr_keyword">private</strong> XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.newInstance();
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> 
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">     * Instantiates a new default builder.</em>
@@ -196,6 +196,6 @@
 <a class="jxr_linenumber" name="L188" href="#L188">188</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2022 <a href="https://bremersee.org">bremersee.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2019&#x2013;2022 <a href="https://bremersee.org">bremersee.org</a>. All rights reserved.</div>
 </body>
 </html>

@@ -79,7 +79,7 @@ public interface ExtensionsTypeBuilder {
    *
    * @return the extensions builder
    */
-  static ExtensionsTypeBuilder builder() {
+  static ExtensionsTypeBuilder newInstance() {
 <span class="fc" id="L83">    return new DefaultBuilder();</span>
   }
 
@@ -89,7 +89,7 @@ public interface ExtensionsTypeBuilder {
    * @param extensionElements the extension elements
    * @return the extensions type builder
    */
-  static ExtensionsTypeBuilder builder(Collection&lt;? extends Element&gt; extensionElements) {
+  static ExtensionsTypeBuilder newInstance(Collection&lt;? extends Element&gt; extensionElements) {
 <span class="fc" id="L93">    return new DefaultBuilder(extensionElements);</span>
   }
 
@@ -99,7 +99,7 @@ public interface ExtensionsTypeBuilder {
    * @param extensionsType the extensions type
    * @return the extensions type builder
    */
-  static ExtensionsTypeBuilder builder(ExtensionsType extensionsType) {
+  static ExtensionsTypeBuilder newInstance(ExtensionsType extensionsType) {
 <span class="fc" id="L103">    return new DefaultBuilder(extensionsType);</span>
   }
 
@@ -110,7 +110,7 @@ public interface ExtensionsTypeBuilder {
 
 <span class="fc" id="L111">    private final List&lt;Element&gt; anies = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L113">    private XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.builder();</span>
+<span class="fc" id="L113">    private XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.newInstance();</span>
 
     /**
      * Instantiates a new default builder.
@@ -186,4 +186,4 @@ public interface ExtensionsTypeBuilder {
 
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

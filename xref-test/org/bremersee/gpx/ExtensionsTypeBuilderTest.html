@@ -48,7 +48,7 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  @ExtendWith(SoftAssertionsExtension.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">class</strong> <a name="ExtensionsTypeBuilderTest" href="../../../org/bremersee/gpx/ExtensionsTypeBuilderTest.html#ExtensionsTypeBuilderTest">ExtensionsTypeBuilderTest</a> {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.builder();
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> XmlDocumentBuilder documentBuilder = XmlDocumentBuilder.newInstance();
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> JaxbContextBuilder jaxbContextBuilder;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>    @BeforeAll
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> createJaxbContextBuilder() {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      jaxbContextBuilder = JaxbContextBuilder.builder()
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      jaxbContextBuilder = JaxbContextBuilder.newInstance()
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          .withSchemaMode(SchemaMode.ALWAYS)
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          .processAll(ServiceLoader.load(JaxbContextDataProvider.<strong class="jxr_keyword">class</strong>))
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          .initJaxbContext();
@@ -68,7 +68,7 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>    @Test
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>    <strong class="jxr_keyword">void</strong> use() {
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      ExtensionsTypeBuilder actual = ExtensionsTypeBuilder.builder()
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      ExtensionsTypeBuilder actual = ExtensionsTypeBuilder.newInstance()
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          .use(documentBuilder);
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      Assertions.assertThat(actual).isNotNull();
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>    }
@@ -81,21 +81,21 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>    @Test
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>    <strong class="jxr_keyword">void</strong> addNoElement(SoftAssertions softly) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      ExtensionsType actual = ExtensionsTypeBuilder.builder()
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      ExtensionsType actual = ExtensionsTypeBuilder.newInstance()
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          .addElement(<strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          .build(false);
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      softly.assertThat(actual).isNotNull();
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>      softly.assertThat(actual.getAnies()).isEmpty();
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>      actual = ExtensionsTypeBuilder.builder()
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      actual = ExtensionsTypeBuilder.newInstance()
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          .addElement(<strong class="jxr_keyword">null</strong>, jaxbContextBuilder.buildJaxbContext())
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          .build(false);
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      softly.assertThat(actual).isNotNull();
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      softly.assertThat(actual.getAnies()).isEmpty();
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      actual = ExtensionsTypeBuilder.builder()
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      actual = ExtensionsTypeBuilder.newInstance()
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          .addElement(<strong class="jxr_keyword">null</strong>, jaxbContextBuilder.buildJaxbContext().createMarshaller())
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          .build(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
@@ -124,7 +124,7 @@
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         .buildDocument(waypointExtension, jaxbContextBuilder.buildJaxbContext())
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         .getDocumentElement();
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> 
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>     ExtensionsType actual = ExtensionsTypeBuilder.builder()
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>     ExtensionsType actual = ExtensionsTypeBuilder.newInstance()
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         .addElement(element)
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>         .build(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L122" href="#L122">122</a> 
@@ -150,7 +150,7 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>     waypointExtension.setCategories(categories);
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>     waypointExtension.setAddress(address);
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>     ExtensionsType actual = ExtensionsTypeBuilder.builder()
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>     ExtensionsType actual = ExtensionsTypeBuilder.newInstance()
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext())
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         .build(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
@@ -177,7 +177,7 @@
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>     waypointExtension.setCategories(categories);
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>     waypointExtension.setAddress(address);
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> 
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>     ExtensionsType actual = ExtensionsTypeBuilder.builder()
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     ExtensionsType actual = ExtensionsTypeBuilder.newInstance()
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         .addElement(waypointExtension, jaxbContextBuilder.buildJaxbContext().createMarshaller())
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>         .build(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> 
@@ -214,7 +214,7 @@
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>         .buildDocument(waypointExtension, jaxbContextBuilder.buildJaxbContext())
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>         .getDocumentElement();
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> 
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>     ExtensionsType actual = ExtensionsTypeBuilder.builder(List.of(element))
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>     ExtensionsType actual = ExtensionsTypeBuilder.newInstance(List.of(element))
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>         .build(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L211" href="#L211">211</a> 
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>     softly.assertThat(actual).isNotNull();
@@ -243,10 +243,10 @@
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>         .buildDocument(waypointExtension, jaxbContextBuilder.buildJaxbContext())
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>         .getDocumentElement();
 <a class="jxr_linenumber" name="L237" href="#L237">237</a> 
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>     ExtensionsType tmp = ExtensionsTypeBuilder.builder(List.of(element))
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>     ExtensionsType tmp = ExtensionsTypeBuilder.newInstance(List.of(element))
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>         .build(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> 
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>     ExtensionsType actual = ExtensionsTypeBuilder.builder(tmp)
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     ExtensionsType actual = ExtensionsTypeBuilder.newInstance(tmp)
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>         .build(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L243" href="#L243">243</a> 
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>     softly.assertThat(actual).isNotNull();
@@ -256,6 +256,6 @@
 <a class="jxr_linenumber" name="L248" href="#L248">248</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2022 <a href="https://bremersee.org">bremersee.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2019&#x2013;2022 <a href="https://bremersee.org">bremersee.org</a>. All rights reserved.</div>
 </body>
 </html>

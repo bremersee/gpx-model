@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>    @BeforeAll
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> createJaxbContextBuilder() {
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      jaxbContextBuilder = JaxbContextBuilder.builder()
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      jaxbContextBuilder = JaxbContextBuilder.newInstance()
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          .withSchemaMode(SchemaMode.ALWAYS)
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          .processAll(ServiceLoader.load(JaxbContextDataProvider.<strong class="jxr_keyword">class</strong>))
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          .initJaxbContext();
@@ -102,7 +102,7 @@
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>      waypointExtension.setCategories(categories);
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>      waypointExtension.setAddress(address);
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>      ExtensionsType extensionsType = ExtensionsTypeBuilder.builder()
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>      ExtensionsType extensionsType = ExtensionsTypeBuilder.newInstance()
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          .addElement(waypointExtension, jaxbContextBuilder.buildMarshaller(waypointExtension))
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          .build(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
@@ -250,6 +250,6 @@
 <a class="jxr_linenumber" name="L242" href="#L242">242</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2022 <a href="https://bremersee.org">bremersee.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2019&#x2013;2022 <a href="https://bremersee.org">bremersee.org</a>. All rights reserved.</div>
 </body>
 </html>
