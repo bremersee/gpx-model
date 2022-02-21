@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2019-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,13 @@
 
 package org.bremersee.gpx;
 
+import static org.bremersee.xml.JaxbContextMember.byPackage;
+
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 import org.bremersee.gpx.model.ObjectFactory;
-import org.bremersee.xml.JaxbContextData;
 import org.bremersee.xml.JaxbContextDataProvider;
+import org.bremersee.xml.JaxbContextMember;
 
 /**
  * GPX jaxb context data provider.
@@ -36,10 +38,12 @@ public class GpxJaxbContextDataProvider implements JaxbContextDataProvider {
   public static final String NAMESPACE = "http://www.topografix.com/GPX/1/1";
 
   @Override
-  public Collection<JaxbContextData> getJaxbContextData() {
-    return Collections.singletonList(new JaxbContextData(
-        ObjectFactory.class.getPackage(),
-        "http://www.topografix.com/GPX/1/1/gpx.xsd"));
+  public Collection<JaxbContextMember> getJaxbContextData() {
+    return List.of(
+        byPackage(ObjectFactory.class.getPackage())
+            .schemaLocation("http://www.topografix.com/GPX/1/1/gpx.xsd")
+            .build()
+    );
   }
 
 }

@@ -14,14 +14,15 @@
   <artifactId>gpx-model</artifactId>
   <version>1.2.2-SNAPSHOT</version>
   <name>GPX Model</name>
+  <inceptionYear>2019</inceptionYear>
   <url>https://github.com/bremersee/gpx-model</url>
 
   <properties>
     <github.repo>gpx-model</github.repo>
     <gh-pages-staging-dir>${project.build.directory}/staging</gh-pages-staging-dir>
 
-    <common-xml.version>2.4.0</common-xml.version>
-    <garmin-model.version>1.1.1</garmin-model.version>
+    <common-xml.version>2.5.0-SNAPSHOT</common-xml.version>
+    <garmin-model.version>1.1.2-SNAPSHOT</garmin-model.version>
   </properties>
 
   <developers>
