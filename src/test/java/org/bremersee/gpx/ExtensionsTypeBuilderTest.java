@@ -51,7 +51,7 @@ class ExtensionsTypeBuilderTest {
   @BeforeAll
   static void createJaxbContextBuilder() {
     jaxbContextBuilder = JaxbContextBuilder.newInstance()
-        .withSchemaMode(SchemaMode.NEVER) // TODO schema generation doesn't work anymore
+        .withSchemaMode(SchemaMode.ALWAYS)
         .processAll(ServiceLoader.load(JaxbContextDataProvider.class))
         .initJaxbContext();
   }

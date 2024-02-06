@@ -16,8 +16,8 @@
 
 package org.bremersee.gpx;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -63,7 +63,7 @@ class JaxbContextBuilderTest {
   @BeforeAll
   static void createJaxbContextBuilder() {
     jaxbContextBuilder = JaxbContextBuilder.newInstance()
-        .withSchemaMode(SchemaMode.NEVER) // TODO schema generation doesn't work anymore
+        .withSchemaMode(SchemaMode.NEVER)
         .processAll(ServiceLoader.load(JaxbContextDataProvider.class))
         .initJaxbContext();
   }
@@ -231,7 +231,7 @@ class JaxbContextBuilderTest {
   void testTrack(SoftAssertions softly) throws Exception {
     Object obj = unmarshalClassPathResource("classpath:Track.GPX");
     assertNotNull(obj);
-    assertTrue(obj instanceof Gpx);
+    assertInstanceOf(Gpx.class, obj);
 
     StringWriter sw = new StringWriter();
     jaxbContextBuilder.buildMarshaller(obj).marshal(obj, sw);

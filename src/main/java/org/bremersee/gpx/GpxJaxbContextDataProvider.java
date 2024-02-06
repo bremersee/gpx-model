@@ -41,7 +41,8 @@ public class GpxJaxbContextDataProvider implements JaxbContextDataProvider {
   public Collection<JaxbContextMember> getJaxbContextData() {
     return List.of(
         byPackage(ObjectFactory.class.getPackage())
-            .schemaLocation("http://www.topografix.com/GPX/1/1/gpx.xsd")
+            .schemaLocation("http://bremersee.github.io/xmlschemas/gpx/gpx_v1_1.xsd")
+            // document moved: .schemaLocation("http://www.topografix.com/GPX/1/1/gpx.xsd")
             .build()
     );
   }

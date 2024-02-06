@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsd:schema
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns="http://www.topografix.com/GPX/1/1"
-    targetNamespace="http://www.topografix.com/GPX/1/1"
-    elementFormDefault="qualified">
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://www.topografix.com/GPX/1/1"
+  targetNamespace="http://www.topografix.com/GPX/1/1"
+  elementFormDefault="qualified">
 
   <xsd:annotation>
     <xsd:documentation>
@@ -326,14 +326,14 @@
     <xsd:attribute name="lat" type="latitudeType" use="required">
       <xsd:annotation>
         <xsd:documentation>
-          The latitude of the point. Decimal degrees, WGS84 datum.
+          The latitude of the point. This is always in decimal degrees, and always in WGS84 datum.
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
     <xsd:attribute name="lon" type="longitudeType" use="required">
       <xsd:annotation>
         <xsd:documentation>
-          The latitude of the point. Decimal degrees, WGS84 datum.
+          The longitude of the point. This is always in decimal degrees, and always in WGS84 datum.
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
