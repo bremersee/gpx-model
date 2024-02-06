@@ -4,11 +4,11 @@ pipeline {
   }
   environment {
     CODECOV_TOKEN = credentials('gpx-model-codecov-token')
-    TEST = true
-    DEPLOY = true
-    SNAPSHOT_SITE = true
-    RELEASE_SITE = true
-    DEPLOY_FEATURE = true
+    TEST = false
+    DEPLOY = false
+    SNAPSHOT_SITE = false
+    RELEASE_SITE = false
+    DEPLOY_FEATURE = false
   }
   tools {
     jdk 'jdk17'
