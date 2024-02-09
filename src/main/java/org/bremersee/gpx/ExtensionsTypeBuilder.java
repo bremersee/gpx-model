@@ -16,11 +16,11 @@
 
 package org.bremersee.gpx;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 import org.bremersee.gpx.model.ExtensionsType;
 import org.bremersee.xml.XmlDocumentBuilder;
 import org.w3c.dom.Element;

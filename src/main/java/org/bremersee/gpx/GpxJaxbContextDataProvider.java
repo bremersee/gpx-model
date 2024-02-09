@@ -34,14 +34,15 @@ public class GpxJaxbContextDataProvider implements JaxbContextDataProvider {
   /**
    * The GPX XML name space.
    */
-  @SuppressWarnings("WeakerAccess")
+  @SuppressWarnings({"WeakerAccess", "unused"})
   public static final String NAMESPACE = "http://www.topografix.com/GPX/1/1";
 
   @Override
   public Collection<JaxbContextMember> getJaxbContextData() {
     return List.of(
         byPackage(ObjectFactory.class.getPackage())
-            .schemaLocation("http://www.topografix.com/GPX/1/1/gpx.xsd")
+            .schemaLocation("http://bremersee.github.io/xmlschemas/gpx/gpx_v1_1.xsd")
+            // document moved: .schemaLocation("http://www.topografix.com/GPX/1/1/gpx.xsd")
             .build()
     );
   }

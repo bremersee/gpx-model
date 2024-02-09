@@ -20,14 +20,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ServiceLoader;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.bremersee.garmin.gpx.v3.model.ext.AddressT;
@@ -58,7 +58,7 @@ class GpxJaxbContextHelperTest {
   @BeforeAll
   static void createJaxbContextBuilder() {
     jaxbContextBuilder = JaxbContextBuilder.newInstance()
-        .withSchemaMode(SchemaMode.NEVER) // TODO schema generation doesn't work anymore
+        .withSchemaMode(SchemaMode.NEVER)
         .processAll(ServiceLoader.load(JaxbContextDataProvider.class))
         .initJaxbContext();
   }
