@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<bindings version="2.1"
+<bindings version="3.0"
   schemaLocation="../xsd/gpx.xsd"
-  xmlns="http://java.sun.com/xml/ns/jaxb"
+  xmlns="https://jakarta.ee/xml/ns/jaxb"
   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
