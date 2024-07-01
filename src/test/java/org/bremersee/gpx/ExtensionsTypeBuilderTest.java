@@ -16,9 +16,10 @@
 
 package org.bremersee.gpx;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.ServiceLoader;
-import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.bremersee.garmin.gpx.v3.model.ext.AddressT;
@@ -62,7 +63,7 @@ class ExtensionsTypeBuilderTest {
   void use() {
     ExtensionsTypeBuilder actual = ExtensionsTypeBuilder.newInstance()
         .use(documentBuilder);
-    Assertions.assertThat(actual).isNotNull();
+    assertThat(actual).isNotNull();
   }
 
   /**
