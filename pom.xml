@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>3.1.1</version>
+    <version>3.2.0-SNAPSHOT</version>
     <relativePath/>
   </parent>
 
@@ -21,8 +21,8 @@
     <github.repo>gpx-model</github.repo>
     <gh-pages-staging-dir>${project.build.directory}/staging</gh-pages-staging-dir>
 
-    <common-xml.version>3.1.0</common-xml.version>
-    <garmin-model.version>2.1.0</garmin-model.version>
+    <common-xml.version>3.2.0-SNAPSHOT</common-xml.version>
+    <garmin-model.version>2.2.0-SNAPSHOT</garmin-model.version>
   </properties>
 
   <developers>
